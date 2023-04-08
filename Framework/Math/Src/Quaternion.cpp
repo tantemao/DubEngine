@@ -20,21 +20,28 @@ namespace DubEngine::DEMath
 
     inline void Quaternion::Conjugate() noexcept
     {
+        x = -x;
+        y = -y;
+        z = -z;
     }
 
     inline void Quaternion::Conjugate(Quaternion& result) const noexcept
     {
-
+        result.Conjugate();
     }
 
     inline void Quaternion::Inverse(Quaternion& result) const noexcept
     {
+        float magnitude = result.Magnitude(result);
+        result.Conjugate();
+        result = result / (magnitude * magnitude);
+
 
     }
 
     inline float Quaternion::Dot(const Quaternion& q) const noexcept
     {
-        return 0.0f;
+        return w * q.w + x * q.x + y * q.y + z * q.z;
     }
 
     float Quaternion::Magnitude(const Quaternion& q)
@@ -61,7 +68,18 @@ namespace DubEngine::DEMath
 
     inline Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept
     {
-        return Quaternion();
+        float cosYaw = cos(yaw * 0.5f);
+        float sinYaw = sin(yaw * 0.5f);
+        float cosPitch = cos(pitch * 0.5f);
+        float sinPitch = sin(pitch * 0.5f);
+        float cosRoll = cos(roll * 0.5f);
+        float sinRoll = sin(roll * 0.5f);
+        Quaternion q;
+        q.x = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
+        q.y = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
+        q.z = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
+        q.w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
+
     }
 
     inline Quaternion Quaternion::CreateFromRotationMatrix(const Matrix4& M) noexcept
