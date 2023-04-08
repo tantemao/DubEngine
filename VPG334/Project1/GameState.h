@@ -19,10 +19,10 @@ protected:
     Camera mCamera;
     DirectionalLight mDirectionalLight;
 
-    Mesh mSphere;
-    RenderGroup mCharacter;
+
+    RenderObject mSphere;
     RenderObject mGround;
 
     StandardEffect mStandardEffect;
-    ShadowEffect mShadowEffect;
+
 };

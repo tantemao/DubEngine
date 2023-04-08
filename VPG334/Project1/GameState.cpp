@@ -22,26 +22,26 @@ void GameState::Initialize()
 	mGround.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mGround.material.power = 10.0f;
 
-	Model character;
-	ModelIO::LoadModel("../../Assets/Models/mutant/Mutant.model", character);
-	ModelIO::LoadMaterial("../../Assets/Models/mutant/Mutant.model", character);
-	mCharacter = CreateRenderGroup(character);
-
+	Mesh sphere = MeshBuilder::CreateSphere(60, 60, 1.0f);
+	mSphere.meshBuffer.Initialize(sphere); 
+	mSphere.diffuseMapId = TextureManager::Get()->LoadTexture(L"Textures/misc/basketball.jpg");
+	mSphere.material.ambient = { 0.5f, 0.5f, 0.5f, 1.0f };
+	mSphere.material.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
+	mSphere.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
+	mSphere.material.power = 20.0f;
+	mSphere.transform.position.y = 1.0f;
+	
 	mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mStandardEffect.SetLightCamera(mShadowEffect.GetLightCamera());
-	mStandardEffect.SetShadowMap(&mShadowEffect.GetDepthMap());
-
-	mShadowEffect.Initialize();
-	mShadowEffect.SetDirectionalLight(mDirectionalLight);
 }
 void GameState::Terminate()
 {
-	mShadowEffect.Terminate();
+
 	mStandardEffect.Terminate();
 	mGround.Terminate();
-	CleanupRenderGroup(mCharacter);
+	mSphere.Terminate();
+
 }
 
 void GameState::Update(float deltaTime)
@@ -87,13 +87,11 @@ void GameState::Update(float deltaTime)
 
 void GameState::Render()
 {
-	mShadowEffect.Begin();
-		DrawRenderGroup(mShadowEffect, mCharacter);
-	mShadowEffect.End();
+
 
 	mStandardEffect.Begin();
-		DrawRenderGroup(mStandardEffect, mCharacter);
 		mStandardEffect.Render(mGround);
+		mStandardEffect.Render(mSphere);
 	mStandardEffect.End();
 }
 
@@ -115,7 +113,7 @@ void GameState::DebugUI()
 	}
 
 	mStandardEffect.DebugUI();
-	mShadowEffect.DebugUI();
+
 
 	ImGui::End();
 }
