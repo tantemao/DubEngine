@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.33213.308
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{5DF77ABD-4701-4750-82F4-4D7EDF99F8D7}"
 EndProject
@@ -87,6 +87,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12_HelloShadow", "VGP330\12_HelloShadow\12_HelloShadow.vcxproj", "{C4ABE9CE-7D0A-4107-A72D-D7EE01C56C0C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FurShader", "VGP330\FurShader\FurShader.vcxproj", "{EAB31BB9-B823-4A08-A029-B704F5689113}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP334", "VGP334", "{A44E3697-51B9-4034-A157-001FC89EC410}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project1", "VPG334\Project1\Project1.vcxproj", "{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -264,6 +268,14 @@ Global
 		{EAB31BB9-B823-4A08-A029-B704F5689113}.Release|x64.Build.0 = Release|x64
 		{EAB31BB9-B823-4A08-A029-B704F5689113}.Release|x86.ActiveCfg = Release|Win32
 		{EAB31BB9-B823-4A08-A029-B704F5689113}.Release|x86.Build.0 = Release|Win32
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Debug|x64.ActiveCfg = Debug|x64
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Debug|x64.Build.0 = Debug|x64
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Debug|x86.ActiveCfg = Debug|Win32
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Debug|x86.Build.0 = Debug|Win32
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Release|x64.ActiveCfg = Release|x64
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Release|x64.Build.0 = Release|x64
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Release|x86.ActiveCfg = Release|Win32
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -292,98 +304,9 @@ Global
 		{54A65C7C-4C1B-4E92-BE77-DE17699617B0} = {1A3F303D-92D3-4CCC-A4B1-F0B9F0ED8A1F}
 		{C4ABE9CE-7D0A-4107-A72D-D7EE01C56C0C} = {1A3F303D-92D3-4CCC-A4B1-F0B9F0ED8A1F}
 		{EAB31BB9-B823-4A08-A029-B704F5689113} = {1A3F303D-92D3-4CCC-A4B1-F0B9F0ED8A1F}
+		{2D93C294-8DC9-4D59-BA0B-D1BD6501FEA7} = {A44E3697-51B9-4034-A157-001FC89EC410}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19AAD3CD-1A1F-4140-B558-4CE2CAF52272}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 22
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://dev.azure.com/dwaine777
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Framework\\Core\\Core.vcxproj
-		SccProjectTopLevelParentUniqueName1 = DubEngine.sln
-		SccProjectName1 = Framework/Core
-		SccLocalPath1 = Framework\\Core
-		SccProjectUniqueName2 = Framework\\Math\\Math.vcxproj
-		SccProjectTopLevelParentUniqueName2 = DubEngine.sln
-		SccProjectName2 = Framework/Math
-		SccLocalPath2 = Framework\\Math
-		SccProjectUniqueName3 = UnitTests\\MathTest\\MathTest.vcxproj
-		SccProjectTopLevelParentUniqueName3 = DubEngine.sln
-		SccProjectName3 = UnitTests/MathTest
-		SccLocalPath3 = UnitTests\\MathTest
-		SccProjectUniqueName4 = VGP242\\HelloWindow\\HelloWindow.vcxproj
-		SccProjectTopLevelParentUniqueName4 = DubEngine.sln
-		SccProjectName4 = VGP242/HelloWindow
-		SccLocalPath4 = VGP242\\HelloWindow
-		SccProjectUniqueName5 = Engine\\DubEngine\\DubEngine.vcxproj
-		SccProjectTopLevelParentUniqueName5 = DubEngine.sln
-		SccProjectName5 = Engine/DubEngine
-		SccLocalPath5 = Engine\\DubEngine
-		SccProjectUniqueName6 = Framework\\Graphics\\Graphics.vcxproj
-		SccProjectTopLevelParentUniqueName6 = DubEngine.sln
-		SccProjectName6 = Framework/Graphics
-		SccLocalPath6 = Framework\\Graphics
-		SccProjectUniqueName7 = VGP242\\02_HelloGraphics\\02_HelloGraphics.vcxproj
-		SccProjectTopLevelParentUniqueName7 = DubEngine.sln
-		SccProjectName7 = VGP242/02_HelloGraphics
-		SccLocalPath7 = VGP242\\02_HelloGraphics
-		SccProjectUniqueName8 = Framework\\Input\\Input.vcxproj
-		SccProjectTopLevelParentUniqueName8 = DubEngine.sln
-		SccProjectName8 = Framework/Input
-		SccLocalPath8 = Framework\\Input
-		SccProjectUniqueName9 = External\\DirectXTK\\DirectXTK_Desktop_2019.vcxproj
-		SccProjectTopLevelParentUniqueName9 = DubEngine.sln
-		SccProjectName9 = External/DirectXTK
-		SccLocalPath9 = External\\DirectXTK
-		SccProjectUniqueName10 = VGP242\\03_HelloShapes\\03_HelloShapes.vcxproj
-		SccProjectTopLevelParentUniqueName10 = DubEngine.sln
-		SccProjectName10 = VGP242/03_HelloShapes
-		SccLocalPath10 = VGP242\\03_HelloShapes
-		SccProjectUniqueName11 = VGP242\\04_HelloCube\\04_HelloCube.vcxproj
-		SccProjectTopLevelParentUniqueName11 = DubEngine.sln
-		SccProjectName11 = VGP242/04_HelloCube
-		SccLocalPath11 = VGP242\\04_HelloCube
-		SccProjectUniqueName12 = VGP242\\05_HelloMeshBuilder\\05_HelloMeshBuilder.vcxproj
-		SccProjectTopLevelParentUniqueName12 = DubEngine.sln
-		SccProjectName12 = VGP242/05_HelloMeshBuilder
-		SccLocalPath12 = VGP242\\05_HelloMeshBuilder
-		SccProjectUniqueName13 = VGP242\\07_HelloTexture\\07_HelloTexture.vcxproj
-		SccProjectTopLevelParentUniqueName13 = DubEngine.sln
-		SccProjectName13 = VGP242/07_HelloTexture
-		SccLocalPath13 = VGP242\\07_HelloTexture
-		SccProjectUniqueName14 = VGP330\\08_HelloSimpleDraw\\08_HelloSimpleDraw.vcxproj
-		SccProjectTopLevelParentUniqueName14 = DubEngine.sln
-		SccProjectName14 = VGP330/08_HelloSimpleDraw
-		SccLocalPath14 = VGP330\\08_HelloSimpleDraw
-		SccProjectUniqueName15 = External\\ImGui\\ImGui.vcxproj
-		SccProjectTopLevelParentUniqueName15 = DubEngine.sln
-		SccProjectName15 = External/ImGui
-		SccLocalPath15 = External\\ImGui
-		SccProjectUniqueName16 = VGP330\\09_HelloLighting\\09_HelloLighting.vcxproj
-		SccProjectTopLevelParentUniqueName16 = DubEngine.sln
-		SccProjectName16 = VGP330/09_HelloLighting
-		SccLocalPath16 = VGP330\\09_HelloLighting
-		SccProjectUniqueName17 = VGP330\\10_HelloPostProcessing\\10_HelloPostProcessing.vcxproj
-		SccProjectTopLevelParentUniqueName17 = DubEngine.sln
-		SccProjectName17 = VGP330/10_HelloPostProcessing
-		SccLocalPath17 = VGP330\\10_HelloPostProcessing
-		SccProjectUniqueName18 = Tools\\ModelImporter\\ModelImporter.vcxproj
-		SccProjectTopLevelParentUniqueName18 = DubEngine.sln
-		SccProjectName18 = Tools/ModelImporter
-		SccLocalPath18 = Tools\\ModelImporter
-		SccProjectUniqueName19 = VGP330\\11_HelloModel\\11_HelloModel.vcxproj
-		SccProjectTopLevelParentUniqueName19 = DubEngine.sln
-		SccProjectName19 = VGP330/11_HelloModel
-		SccLocalPath19 = VGP330\\11_HelloModel
-		SccProjectUniqueName20 = VGP330\\12_HelloShadow\\12_HelloShadow.vcxproj
-		SccProjectTopLevelParentUniqueName20 = DubEngine.sln
-		SccProjectName20 = VGP330/12_HelloShadow
-		SccLocalPath20 = VGP330\\12_HelloShadow
-		SccProjectUniqueName21 = VGP330\\FurShader\\FurShader.vcxproj
-		SccProjectTopLevelParentUniqueName21 = DubEngine.sln
-		SccProjectName21 = VGP330/FurShader
-		SccLocalPath21 = VGP330\\FurShader
 	EndGlobalSection
 EndGlobal

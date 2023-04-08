@@ -1,6 +1,7 @@
 #include "Precompiled.h"
 #include "../Inc/Quaternion.h"
 #include "Math/Inc/DEMath.h"
+#include "Math/Inc/Matrix4.h"
 
 /****************************************************************************
  *
@@ -79,12 +80,19 @@ namespace DubEngine::DEMath
         q.y = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
         q.z = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
         q.w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
-
+        return q;
     }
 
     inline Quaternion Quaternion::CreateFromRotationMatrix(const Matrix4& M) noexcept
     {
-        return Quaternion();
+        Quaternion q;
+        float qw = sqrt(1.0f + M._11 + M._22 + M._33);
+
+        float w4 = q.w * 4;
+        q.x = (M._32 - M._23) / w4;
+        q.y = (M._13 - M._31) / w4;
+        q.z = (M._21 - M._12) / w4;
+        return q;
     }
 
     Quaternion Quaternion::Lerp(Quaternion q0, Quaternion q1, float t)
