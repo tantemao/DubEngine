@@ -76,8 +76,8 @@ namespace DubEngine::DEMath
         float cosRoll = cos(roll * 0.5f);
         float sinRoll = sin(roll * 0.5f);
         Quaternion q;
-        q.x = cosRoll * sinPitch * cosYaw + sinRoll * sinPitch * sinYaw;
-        q.y = cosRoll * cosPitch * sinYaw - sinRoll * cosPitch * cosYaw;
+        q.x = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
+        q.y = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
         q.z = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
         q.w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
         return q;
