@@ -83,8 +83,8 @@ void GameState::Update(float deltaTime)
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
-	mYaw += turnSpeed * deltaTime;
-	mSphere.transform.rotation = Quaternion::CreateFromYawPitchRoll(mYaw, mPitch, mRoll);
+	//mYaw += turnSpeed * deltaTime;
+	//mSphere.transform.rotation = Quaternion::CreateFromYawPitchRoll(mYaw, mPitch, mRoll);
 }
 
 void GameState::Render()
