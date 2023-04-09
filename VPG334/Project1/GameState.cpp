@@ -22,14 +22,14 @@ void GameState::Initialize()
 	mGround.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mGround.material.power = 10.0f;
 
-	Mesh sphere = MeshBuilder::CreateSphere(60, 60, 1.0f);
+	Mesh sphere = MeshBuilder::CreateSphere(60, 60, 0.5f);
 	mSphere.meshBuffer.Initialize(sphere); 
 	mSphere.diffuseMapId = TextureManager::Get()->LoadTexture(L"Textures/misc/basketball.jpg");
 	mSphere.material.ambient = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mSphere.material.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mSphere.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mSphere.material.power = 20.0f;
-	mSphere.transform.position.y = 1.0f;
+	mSphere.transform.position.y=1.0f;
 	
 	mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
 	mStandardEffect.SetCamera(mCamera);
@@ -83,6 +83,8 @@ void GameState::Update(float deltaTime)
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
+	mYaw += turnSpeed * deltaTime;
+	mSphere.transform.rotation = Quaternion::CreateFromYawPitchRoll(mYaw, mPitch, mRoll);
 }
 
 void GameState::Render()
@@ -111,6 +113,9 @@ void GameState::DebugUI()
 		ImGui::ColorEdit4("Diffuse##Light", &mDirectionalLight.diffuse.r);
 		ImGui::ColorEdit4("Specular##Light", &mDirectionalLight.specular.r);
 	}
+	ImGui::DragFloat("Yaw##", &mYaw,0.1f);
+	ImGui::DragFloat("Pitch##", &mPitch,0.1f);
+	ImGui::DragFloat("Roll##", &mRoll,0.1f);
 
 	mStandardEffect.DebugUI();
 

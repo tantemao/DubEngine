@@ -67,7 +67,7 @@ namespace DubEngine::DEMath
         return Quaternion(a.x * s, a.y * s, a.z * s, c);
     }
 
-    inline Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept
+     Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll) noexcept
     {
         float cosYaw = cos(yaw * 0.5f);
         float sinYaw = sin(yaw * 0.5f);
@@ -76,9 +76,9 @@ namespace DubEngine::DEMath
         float cosRoll = cos(roll * 0.5f);
         float sinRoll = sin(roll * 0.5f);
         Quaternion q;
-        q.x = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
-        q.y = cosRoll * sinPitch * cosYaw + sinRoll * cosPitch * sinYaw;
-        q.z = cosRoll * cosPitch * sinYaw - sinRoll * sinPitch * cosYaw;
+        q.x = cosRoll * sinPitch * cosYaw + sinRoll * sinPitch * sinYaw;
+        q.y = cosRoll * cosPitch * sinYaw - sinRoll * cosPitch * cosYaw;
+        q.z = sinRoll * cosPitch * cosYaw - cosRoll * sinPitch * sinYaw;
         q.w = cosRoll * cosPitch * cosYaw + sinRoll * sinPitch * sinYaw;
         return q;
     }
