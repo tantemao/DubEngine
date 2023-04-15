@@ -1,3 +1,4 @@
+#pragma once
 #pragma
 #include "Animation.h"
 namespace DubEngine::Graphics

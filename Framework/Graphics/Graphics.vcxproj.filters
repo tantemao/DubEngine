@@ -99,13 +99,13 @@
     <ClInclude Include="Inc\SimpleTexture.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="KeyFrame.h">
+    <ClInclude Include="Inc\Animation.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
+    <ClInclude Include="Inc\KeyFrame.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="AnimationBuilder.h">
+    <ClInclude Include="Inc\AnimationBuilder.h">
       <Filter>Inc</Filter>
     </ClInclude>
   </ItemGroup>
@@ -173,10 +173,10 @@
     <ClCompile Include="Src\SimpleTexture.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp">
+    <ClCompile Include="Src\Animation.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="AnimationBuilder.cpp">
+    <ClCompile Include="Src\AnimationBuilder.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

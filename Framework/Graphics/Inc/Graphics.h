@@ -28,3 +28,6 @@
 #include "VertexTypes.h"
 #include "Texture.h"
 #include "TextureManager.h"
+#include "KeyFrame.h"
+#include"Animation.h"
+#include"AnimationBuilder.h"
