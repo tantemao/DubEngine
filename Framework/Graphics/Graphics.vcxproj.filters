@@ -99,6 +99,15 @@
     <ClInclude Include="Inc\SimpleTexture.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="KeyFrame.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationBuilder.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -162,6 +171,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\SimpleTexture.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationBuilder.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
