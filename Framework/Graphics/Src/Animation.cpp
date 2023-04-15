@@ -13,7 +13,18 @@ namespace
 		switch (easeType)
 		{
 		case EaseInQuad: t = t * t; break;
-		case EaseOutQuad: t = t * (2.0f - t); break;
+		case EaseOutQuad: t = -t * (t-2.0f); break;
+		case EaseInOutQuad:
+		{
+			t * 2.0f;
+			if (t < 1.0f)
+			{
+				t = 0.5f * t * t;
+				break;
+			}
+			t -= 1.0f;
+			t = -0.5f * ((t * (t - 2.0f)) - 1.0f);
+		}
 		case Linear:
 			default:
 				break;

@@ -17,10 +17,10 @@ namespace DubEngine::Graphics
 	struct KeyFrame
 	{
 		KeyFrame() = default;
-		KeyFrame(const T& k,float t)
+		KeyFrame(const T& k,float t,EaseType e)
 			:key(k)
 			,time(t)
-			,
+			,easetype(e)
 		{
 		
 		

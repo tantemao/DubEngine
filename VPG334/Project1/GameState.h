@@ -24,6 +24,7 @@ protected:
     RenderObject mGround;
 
     StandardEffect mStandardEffect;
+    Animation mSphereAnimation;
     float mYaw = 0.0f;
     float mPitch = 0.0f;
     float mRoll = 0.0f;
