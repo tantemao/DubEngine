@@ -66,7 +66,7 @@ Quaternion Animation::GetRoatation(float time)const
 			if (i > 0)
 			{
 				float lerpTime = GetLerpTime(mRotationKeys[i - 1].time, mRotationKeys[i].time, time, mRotationKeys[i].easetype);
-				return Lerp(mRotationKeys[i - 1].key, mRotationKeys[i].key, lerpTime);
+				return Quaternion::Slerp(mRotationKeys[i - 1].key, mRotationKeys[i].key, lerpTime);
 			}
 			return mRotationKeys[i].key;
 		}
@@ -101,7 +101,7 @@ Transform Animation::GetTransform(float time) const
 	transform.position = GetPosition(time);
 	transform.rotation = GetRoatation(time);
 	transform.scale = GetScale(time);
-
+	return transform;
 }
 float Animation::GetDuration()const
 {

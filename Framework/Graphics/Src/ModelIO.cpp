@@ -206,7 +206,7 @@ void ModelIO::SaveSkeleton(std::filesystem::path filePath, const Model& model)
         }
 
         WriteMatrix(boneData->toParentTransform);
-        WriteMatrix(boneData->offsetPartentTransform);
+        WriteMatrix(boneData->offsetTransform);
     }
     fclose(file);
 }
@@ -276,7 +276,7 @@ void ModelIO::LoadSkeleton(std::filesystem::path filePath, Model& model)
        
 
         ReadMatrix(boneData->toParentTransform);
-        ReadMatrix(boneData->offsetPartentTransform);
+        ReadMatrix(boneData->offsetTransform);
     }
     fclose(file);
 }

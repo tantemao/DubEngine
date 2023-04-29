@@ -195,8 +195,13 @@ Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, B
     auto iter = boneIndexLookup.find(boneName);
     if (iter != boneIndexLookup.end())
     {
+        bone = skeleton.bones[iter->second].get();
+    }
+    else
+    {
         bone = skeleton.bones.emplace_back(std::make_unique < Bone>()).get();
         bone->index = static_cast<int>(skeleton.bones.size()) - 1;
+        bone->offsetPartentTransform = Matrix4::Identity;
         if (boneName.empty())
         {
             bone->name = "NoName" + std::to_string(bone->index);
@@ -205,6 +210,7 @@ Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, B
         {
             bone->name = std::move(boneName);
         }
+
         boneIndexLookup.emplace(bone->name, bone->index);
     }
 
@@ -215,7 +221,7 @@ Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, B
 
     bone->parent = parent;
     bone->parentIndex = parent ? parent->index : -1;
-    bone->toPartentTransform = ToMatrix4(sceneNode.mTransformation);
+    bone->toParentTransform = ToMatrix4(sceneNode.mTransformation);
 
     bone->children.reserve(sceneNode.mNumChildren);
     for (uint32_t i = 0; i < sceneNode.mNumChildren; ++i)

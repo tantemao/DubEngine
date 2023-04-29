@@ -3,6 +3,7 @@
 #include "MeshBuffer.h"
 #include "TextureManager.h"
 #include "Transform.h"
+#include"Skeleton.h"
 
 namespace DubEngine::Graphics
 {
@@ -22,6 +23,7 @@ namespace DubEngine::Graphics
         TextureId specularMapId;
 
         MeshBuffer meshBuffer;
+        const Skeleton* skeleton = nullptr;
     };
 
     using RenderGroup = std::vector<RenderObject>;

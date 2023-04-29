@@ -38,6 +38,8 @@ RenderGroup Graphics::CreateRenderGroup(const Model& model)
         renderObject.displacementMapId = TryLoadTexture(materialData.displacementMapName);
         renderObject.normalMapId = TryLoadTexture(materialData.normalMapName);
 
+        renderObject.skeleton = model.skeleton.get();
+
         renderObject.meshBuffer.Initialize(meshData.mesh);
     }
 

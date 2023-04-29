@@ -15,7 +15,7 @@ namespace DubEngine::Graphics
 	std::vector <int> childrenIndicies;
 
 	DEMath::Matrix4 toParentTransform;
-	DEMath::Matrix4 offsetPartentTransform;
+	DEMath::Matrix4 offsetTransform;
 
 
 	};
