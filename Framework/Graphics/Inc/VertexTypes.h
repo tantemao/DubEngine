@@ -39,12 +39,14 @@ namespace DubEngine::Graphics
 
 	struct Vertex
 	{
-		VERTEX_FORMAT(VE_Position | VE_Normal | VE_Tangent | VE_TexCoord);
-
+		VERTEX_FORMAT(VE_Position | VE_Normal | VE_Tangent | VE_TexCoord | VE_BlendIndex | VE_BlendWeight);
+		static constexpr int MaxBoneWeights = 4;
 		DEMath::Vector3 position;
 		DEMath::Vector3 normal;
 		DEMath::Vector3 tangent;
 		DEMath::Vector2 uvCoord;
+		int boneIndieces[MaxBoneWeights] = {};
+		float boneWeights[MaxBoneWeights] = {};
 	};
 }
 

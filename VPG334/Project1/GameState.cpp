@@ -34,12 +34,7 @@ void GameState::Initialize()
 	mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
 	mStandardEffect.SetCamera(mCamera);
 	mStandardEffect.SetDirectionalLight(mDirectionalLight);
-	mSphereAnimation = AnimationBuilder()
-		.AddPositionKey(Vector3(0.0f, 1.0f, 0.0f), 1.0f)
-		.AddPositionKey()
-		.AddPositionKey()
-		.AddPositionKey()
-		.Build
+	
 }
 void GameState::Terminate()
 {

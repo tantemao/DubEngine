@@ -3,7 +3,8 @@
 using namespace DubEngine;
 using namespace DubEngine::Graphics;
 using namespace DubEngine::DEMath;
-namespace {
+namespace 
+{
 	template<class T>
 	inline void PushKey(Keyframes<T>& keyframes, const T& value, float time,EaseType easeType)
 	{
@@ -21,7 +22,7 @@ AnimationBuilder& AnimationBuilder::AddPositionKey(const DEMath::Vector3& positi
 {
 	PushKey(mWorkingCopy.mPositionKeys, position, time,easeType);
 	mWorkingCopy.mDuration = Max(mWorkingCopy.mDuration, time);
-	return*this;
+	return *this;
 }
 
 
@@ -37,4 +38,10 @@ AnimationBuilder& AnimationBuilder::AddScaleKey(const DEMath::Vector3& scale, fl
 	PushKey(mWorkingCopy.mPositionKeys, scale, time,easeType);
 	mWorkingCopy.mDuration = Max(mWorkingCopy.mDuration, time);
 	return*this;
+}
+Animation AnimationBuilder::Build()
+{
+	ASSERT(!mWorkingCopy.mPositionKeys.empty() || !mWorkingCopy.mRotationKeys.empty() || !mWorkingCopy.mScaleKeys.empty(), "Animationbuilder");
+	ASSERT(mWorkingCopy.mDuration > 0.0f, "AnimationBuilder--Animation has no duration");
+	return std::move(mWorkingCopy);
 }

@@ -16,15 +16,16 @@ namespace
 		case EaseOutQuad: t = -t * (t-2.0f); break;
 		case EaseInOutQuad:
 		{
-			t * 2.0f;
+			t *= 2.0f;
 			if (t < 1.0f)
 			{
-				t = 0.5f * t * t;
+				t = (0.5f * t * t);
 				break;
 			}
 			t -= 1.0f;
-			t = -0.5f * ((t * (t - 2.0f)) - 1.0f);
+			t = -0.5f*((t * (t - 2.0f)) - 1.0f);
 		}
+		break; 
 		case Linear:
 			default:
 				break;

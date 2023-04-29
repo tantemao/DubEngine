@@ -3,6 +3,7 @@
 #include "Common.h"
 
 #include "BlendState.h"
+#include "Bone.h"
 #include "Camera.h"
 #include "ConstantBuffer.h"
 #include "DebugUI.h"
@@ -23,6 +24,7 @@
 #include "SimpleDraw.h"
 #include "SimpleTexture.h"
 #include "StandardEffect.h"
+#include "Skeleton.h"
 #include "Transform.h"
 #include "VertexShader.h"
 #include "VertexTypes.h"
