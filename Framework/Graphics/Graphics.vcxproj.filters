@@ -117,6 +117,9 @@
     <ClInclude Include="Inc\AnimationUtil.h">
       <Filter>Inc</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\ModelManager.h">
+      <Filter>Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\Precompiled.cpp">
@@ -189,6 +192,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="Src\AnimationUtil.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ModelManager.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

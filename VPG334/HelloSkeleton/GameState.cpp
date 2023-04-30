@@ -3,6 +3,7 @@
 
 using namespace DubEngine::DEMath;
 using namespace DubEngine::Input;
+using namespace DubEngine::Graphics;
 
 void GameState::Initialize()
 {
@@ -22,10 +23,8 @@ void GameState::Initialize()
 	mGround.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mGround.material.power = 10.0f;
 
-	ModelIO::LoadModel("../../Assets/Models/Jones/character.model", mCharacterModel);
-	ModelIO::LoadMaterial("../../Assets/Models/Jones/character.model", mCharacterModel);
-	ModelIO::LoadSkeleton("../../Assets/Models/Jones/character.model", mCharacterModel);
-	mCharacter = CreateRenderGroup(mCharacterModel);
+	mCharacterModelId = ModelManager::Get()->LoadModel("../../Assets/Models/Jones/character.model");
+	mCharacter = CreateRenderGroup(mCharacterModelId);
 
 	mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
 	mStandardEffect.SetCamera(mCamera);
@@ -94,8 +93,10 @@ void GameState::Render()
 		if (mDrawSkeleton)
 		{
 			AnimationUtil::Bonetransforms boneTransforms;
-			AnimationUtil::ComputeBoneTransform(mCharacterModel.skeleton.get(), boneTransforms);
-			AnimationUtil::DrawSkeleton(mCharacterModel.skeleton.get(), boneTransforms);
+			AnimationUtil::ComputeBoneTransform(mCharacterModelId, boneTransforms);
+			AnimationUtil::DrawSkeleton(mCharacterModelId, boneTransforms);
+
+			SimpleDraw::Render(mCamera);
 		}
 		else
 		{

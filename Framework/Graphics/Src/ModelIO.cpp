@@ -254,7 +254,7 @@ void ModelIO::LoadSkeleton(std::filesystem::path filePath, Model& model)
         boneData->index = boneIndex;
 
         fscanf_s(file, "BoneParentIndex: %d\n", &boneData->parentIndex);
-        if(boneData->index >= 0)
+        if(boneData->parentIndex >= 0)
         {
             boneData->parent = model.skeleton->bones[boneData->parentIndex].get();
         }

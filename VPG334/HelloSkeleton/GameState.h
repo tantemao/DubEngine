@@ -19,10 +19,10 @@ protected:
     Camera mCamera;
     DirectionalLight mDirectionalLight;
 
-    Model mCharacterModel;
+    ModelId mCharacterModelId;
     RenderGroup mCharacter;
     RenderObject mGround;
-
     StandardEffect mStandardEffect;
+
     bool mDrawSkeleton;
 };

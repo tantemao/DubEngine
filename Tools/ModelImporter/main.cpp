@@ -181,7 +181,7 @@ uint32_t TryAddBone(const aiBone* bone, Skeleton& skeleton, BoneIndexLookup& bon
     auto& newBone = skeleton.bones.emplace_back(std::make_unique<Bone>());
     newBone->name = std::move(boneName);
     newBone->index = static_cast<int>(skeleton.bones.size()) - 1;
-    newBone->offsetPartentTransform = ToMatrix4(bone->mOffsetMatrix);
+    newBone->offsetTransform = ToMatrix4(bone->mOffsetMatrix);
 
     boneIndexMap.emplace(newBone->name, newBone->index);
     return newBone->index;
@@ -201,7 +201,7 @@ Bone* BuildSkeleton(const aiNode& sceneNode, Bone* parent, Skeleton& skeleton, B
     {
         bone = skeleton.bones.emplace_back(std::make_unique < Bone>()).get();
         bone->index = static_cast<int>(skeleton.bones.size()) - 1;
-        bone->offsetPartentTransform = Matrix4::Identity;
+        bone->offsetTransform = Matrix4::Identity;
         if (boneName.empty())
         {
             bone->name = "NoName" + std::to_string(bone->index);
@@ -391,8 +391,8 @@ int main(int argc, char* argv[])
         BuildSkeleton(*scene->mRootNode, nullptr, *(model.skeleton), boneIndexLookup);
         for (auto& bone : model.skeleton->bones)
         {
-            bone->offsetPartentTransform._41 *= arguments.scale;
-            bone->offsetPartentTransform._42 *= arguments.scale;
+            bone->offsetTransform._41 *= arguments.scale;
+            bone->offsetTransform._42 *= arguments.scale;
             bone->toParentTransform._43 *= arguments.scale;
             bone->toParentTransform._41 *= arguments.scale;
             bone->toParentTransform._42 *= arguments.scale;

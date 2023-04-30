@@ -1,5 +1,6 @@
 #pragma once
 #include "Material.h"
+#include"ModelManager.h"
 #include "MeshBuffer.h"
 #include "TextureManager.h"
 #include "Transform.h"
@@ -22,11 +23,13 @@ namespace DubEngine::Graphics
         TextureId displacementMapId;
         TextureId specularMapId;
 
+        ModelId modelId = 0;
         MeshBuffer meshBuffer;
         const Skeleton* skeleton = nullptr;
     };
 
     using RenderGroup = std::vector<RenderObject>;
+    [[nodiscard]] RenderGroup CreateRenderGroup(ModelId modelId);
     [[nodiscard]] RenderGroup CreateRenderGroup(const Model& model);
     void CleanupRenderGroup(RenderGroup& renderGroup);
 
