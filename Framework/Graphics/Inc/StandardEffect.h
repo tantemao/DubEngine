@@ -40,6 +40,11 @@ namespace DubEngine::Graphics
             float displacementWeight;
         };
 
+  /*      struct BoneTransformData
+        {
+            static constexpr size_t  MaxBoneCount = 256;
+            DEMath::Matrix4 boneTransforms[MaxBoneCount];
+        };*/
         struct SettingsData
         {
             int useDiffuseMap = 1;
@@ -47,16 +52,19 @@ namespace DubEngine::Graphics
             int useDisplacementMap = 1;
             int useNormalMap = 1;
             int useShadowMap = 1;
+            int useSkinning = 1;
             float depthBias = 0.0f;
-            float padding[2] = { 0.0f };
+            float padding[1] = { 0.0f };
         };
 
         using TransformBuffer = TypedConstantBuffer<TransformData>;
+        using BoneTransformBuffer = ConstantBuffer;
         using LightBuffer = TypedConstantBuffer<DirectionalLight>;
         using MaterialBuffer = TypedConstantBuffer<Material>;
         using SettingsBuffer = TypedConstantBuffer<SettingsData>;
 
         TransformBuffer mTransformBuffer;
+        BoneTransformBuffer mBoneTransformBuffer;
         LightBuffer mLightBuffer;
         MaterialBuffer mMaterialBuffer;
         SettingsBuffer mSettingsBuffer;
@@ -65,6 +73,7 @@ namespace DubEngine::Graphics
         VertexShader mVertexShader;
         PixelShader mPixelShader;
 
+       /* BoneTransformData mBoneTransformData;*/
         SettingsData mSettingsData;
 
         float mDisplacementWeight = 0.0f;

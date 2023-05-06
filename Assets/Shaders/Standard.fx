@@ -7,7 +7,11 @@ cbuffer TransformBuffer : register(b0)
 	float displacementWeight;
 }
 
-cbuffer LightBuffer : register(b1)
+cbuffer BoneTransformBuffer:register(b1)
+{
+	matrix boneTransforms[256];
+}
+cbuffer LightBuffer : register(b2)
 {
 	float3 lightDirection;
 	float4 lightAmbient;
@@ -15,7 +19,7 @@ cbuffer LightBuffer : register(b1)
 	float4 lightSpecular;
 }
 
-cbuffer MaterialBuffer : register(b2)
+cbuffer MaterialBuffer : register(b3)
 {
 	float4 materialAmbient;
 	float4 materialDiffuse;
@@ -24,7 +28,7 @@ cbuffer MaterialBuffer : register(b2)
 	float materialPower;
 }
 
-cbuffer SettingsBuffer : register(b3)
+cbuffer SettingsBuffer : register(b4)
 {
 	bool useDiffuseMap;
 	bool useSpecularMap;
@@ -48,6 +52,8 @@ struct VS_INPUT
 	float3 normal : NORMAL;
 	float3 tangent : TANGENT;
 	float2 texCoord : TEXCOORD;
+	int4 blendIndices :BLENDINCICES;
+	float4 blendWeights :BLENDWEIGHTs;
 };
 
 struct VS_OUTPUT
@@ -69,6 +75,21 @@ static matrix Identity =
 	0, 0, 0, 1
 };
 
+matrix GetBoneTransform(int4 indices, float4 weights)
+{
+	if (length(weights) <= 0.0f)
+	{
+		return Identity;
+
+	}
+	matrix transform = boneTransforms[indices[0] * weights[0]];
+	transform += boneTransforms[indices[1]] * weight[1];
+	transform += boneTransforms[indices[2]] * weight[2];
+	transform += boneTransforms[indices[3]] * weight[3];
+
+	return transform;
+}
+
 VS_OUTPUT VS(VS_INPUT input)
 {
 	VS_OUTPUT output;
@@ -76,6 +97,12 @@ VS_OUTPUT VS(VS_INPUT input)
 	matrix toWorld = world;
 	matrix toNDC = wvp[0];
 
+	if (useSkinning)
+	{
+		matrix boneTransform = GetBoneTransform(input.blendIndices, input.blendWeights);
+		toWorld = mul(boneTransform, toWorld);
+		toNDC = mull(boneTransform, toNDC);
+	}
 	float3 localPosition = input.position;
 	if (useDisplacementMap)
 	{
