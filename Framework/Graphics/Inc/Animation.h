@@ -16,6 +16,7 @@ namespace DubEngine::Graphics
 		float GetDuration()const;
 	private:
 		friend class AnimationBuilder;
+		friend class AnimationIO;
 
 		PositionKeys mPositionKeys;
 		RotationKeys mRotationKeys;

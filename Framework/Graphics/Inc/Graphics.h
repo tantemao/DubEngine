@@ -35,3 +35,4 @@
 #include"AnimationBuilder.h"
 #include"AnimationUtil.h"
 #include"ModelManager.h"
+#include"AnimationClip.h"

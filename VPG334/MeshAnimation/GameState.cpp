@@ -23,7 +23,7 @@ void GameState::Initialize()
 	mGround.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mGround.material.power = 10.0f;
 
-	mCharacterModelId = ModelManager::Get()->LoadModel("../../Assets/Models/Jones/character.model");
+	mCharacterModelId = ModelManager::Get()->LoadModel("../../Assets/Models/Jones/Dancing.model");
 	mCharacter = CreateRenderGroup(mCharacterModelId);
 
 	mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");

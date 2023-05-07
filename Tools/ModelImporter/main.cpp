@@ -11,14 +11,16 @@ using namespace DubEngine::Graphics;
 using namespace DubEngine::DEMath;
 
 
-//a lot up table which allows you to look up a bone index by name
+//a lookup table which allows you to look up a bone index by name
 using BoneIndexLookup = std::map<std::string, uint32_t>;
+
 struct Arguments
 {
     std::filesystem::path inputFileName;
     std::filesystem::path outputFileName;
     float scale = 1.0f;
     bool useBinary = false;
+    bool animationOnly = false;
 };
 
 std::optional<Arguments> ParseArgs(int argc, char* argv[])
@@ -44,6 +46,12 @@ std::optional<Arguments> ParseArgs(int argc, char* argv[])
             arguments.useBinary = atoi(argv[i + 1]) == 1;
             ++i;
         }
+        else if (strcmp(argv[i], "-animOnly") == 0)
+        {
+            arguments.animationOnly = atoi(argv[i + 1]) == 1;
+            ++i;
+        }
+
     }
 
     return arguments;
@@ -58,6 +66,17 @@ Vector3 ToVector3(const aiVector3D& v)
     };
 }
 
+Quaternion ToQuaternion(const aiQuaternion& q)
+{
+    return {
+        
+        static_cast<float>(q.x),
+        static_cast<float>(q.y),
+        static_cast<float>(q.z),
+        static_cast<float>(q.w)
+        
+    };
+}
 Color ToColor(const aiColor3D& c)
 {
     return {
@@ -265,9 +284,8 @@ int main(int argc, char* argv[])
 
     if (scene->HasMeshes())
     {
-        printf("Reading Mesh Data...\n");
+        printf("Reading bones..\n");
         const uint32_t numMeshes = scene->mNumMeshes;
-        model.meshData.reserve(numMeshes);
         for (uint32_t meshIndex = 0; meshIndex < numMeshes; ++meshIndex)
         {
             const auto& aiMesh = scene->mMeshes[meshIndex];
@@ -275,49 +293,7 @@ int main(int argc, char* argv[])
             {
                 continue;
             }
-
-            const uint32_t numVertices = aiMesh->mNumVertices;
-            const uint32_t numFaces = aiMesh->mNumFaces;
-            const uint32_t numIndices = numFaces * 3;
-
-            auto& meshData = model.meshData.emplace_back();
-
-            printf("Reading material index...\n");
-
-            meshData.materialIndex = aiMesh->mMaterialIndex;
-
-            printf("Reading vertices...\n");
-
-            auto& mesh = meshData.mesh;
-            mesh.vertices.reserve(numVertices);
-
-            const aiVector3D* positions = aiMesh->mVertices;
-            const aiVector3D* normals = aiMesh->mNormals;
-            const aiVector3D* tangents = aiMesh->HasTangentsAndBitangents() ? aiMesh->mTangents : nullptr;
-            const aiVector3D* texCoords = aiMesh->HasTextureCoords(0) ? aiMesh->mTextureCoords[0] : nullptr;
-            for (uint32_t v = 0; v < numVertices; ++v)
-            {
-                auto& vertex = mesh.vertices.emplace_back();
-                vertex.position = ToVector3(positions[v]) * arguments.scale;
-                vertex.normal = ToVector3(normals[v]);
-                vertex.tangent = tangents ? ToVector3(tangents[v]) : Vector3::Zero;
-                if (texCoords)
-                {
-                    vertex.uvCoord = { texCoords[v].x, texCoords[v].y };
-                }
-            }
-
-            printf("Reading indices...\n");
-            mesh.indices.reserve(numIndices);
-            const auto& aiFaces = aiMesh->mFaces;
-            for (uint32_t i = 0; i < numFaces; ++i)
-            {
-                const auto& aiFace = aiFaces[i];
-                mesh.indices.push_back(aiFace.mIndices[0]);
-                mesh.indices.push_back(aiFace.mIndices[1]);
-                mesh.indices.push_back(aiFace.mIndices[2]);
-            }
-
+        
             //look for all the bones
             if (aiMesh->HasBones())
             {
@@ -326,22 +302,96 @@ int main(int argc, char* argv[])
                 {
                     model.skeleton = std::make_unique<Skeleton>();
                 }
-                std::vector<int> numWeightsAdded(mesh.vertices.size(), 0);
+             
                 for (uint32_t b = 0; b < aiMesh->mNumBones; ++b)
                 {
                     aiBone* bone = aiMesh->mBones[b];
                     uint32_t boneIndex = TryAddBone(bone, *(model.skeleton), boneIndexLookup);
+                }
+            }
+        }
 
-                    for (uint32_t w = 0; w < bone->mNumWeights; ++w)
+
+        if (!arguments.animationOnly)
+        {
+            printf("Reading Mesh Data...\n");
+            const uint32_t numMeshes = scene->mNumMeshes;
+            model.meshData.reserve(numMeshes);
+            for (uint32_t meshIndex = 0; meshIndex < numMeshes; ++meshIndex)
+            {
+                const auto& aiMesh = scene->mMeshes[meshIndex];
+                if (aiMesh->mPrimitiveTypes != aiPrimitiveType_TRIANGLE)
+                {
+                    continue;
+                }
+
+                const uint32_t numVertices = aiMesh->mNumVertices;
+                const uint32_t numFaces = aiMesh->mNumFaces;
+                const uint32_t numIndices = numFaces * 3;
+
+                auto& meshData = model.meshData.emplace_back();
+
+                printf("Reading material index...\n");
+
+                meshData.materialIndex = aiMesh->mMaterialIndex;
+
+                printf("Reading vertices...\n");
+
+                auto& mesh = meshData.mesh;
+                mesh.vertices.reserve(numVertices);
+
+                const aiVector3D* positions = aiMesh->mVertices;
+                const aiVector3D* normals = aiMesh->mNormals;
+                const aiVector3D* tangents = aiMesh->HasTangentsAndBitangents() ? aiMesh->mTangents : nullptr;
+                const aiVector3D* texCoords = aiMesh->HasTextureCoords(0) ? aiMesh->mTextureCoords[0] : nullptr;
+                for (uint32_t v = 0; v < numVertices; ++v)
+                {
+                    auto& vertex = mesh.vertices.emplace_back();
+                    vertex.position = ToVector3(positions[v]) * arguments.scale;
+                    vertex.normal = ToVector3(normals[v]);
+                    vertex.tangent = tangents ? ToVector3(tangents[v]) : Vector3::Zero;
+                    if (texCoords)
                     {
-                        const aiVertexWeight& weight = bone->mWeights[w];
-                        auto& vertex = mesh.vertices[weight.mVertexId];
-                        auto& count = numWeightsAdded[weight.mVertexId];
-                        if (count < Vertex::MaxBoneWeights)
+                        vertex.uvCoord = { texCoords[v].x, texCoords[v].y };
+                    }
+                }
+
+                printf("Reading indices...\n");
+                mesh.indices.reserve(numIndices);
+                const auto& aiFaces = aiMesh->mFaces;
+                for (uint32_t i = 0; i < numFaces; ++i)
+                {
+                    const auto& aiFace = aiFaces[i];
+                    mesh.indices.push_back(aiFace.mIndices[0]);
+                    mesh.indices.push_back(aiFace.mIndices[1]);
+                    mesh.indices.push_back(aiFace.mIndices[2]);
+                }
+
+                //look for all the bones
+                if (aiMesh->HasBones())
+                {
+                    printf("Reading bones...\n");
+                    if (model.skeleton == nullptr)
+                    {
+                        model.skeleton = std::make_unique<Skeleton>();
+                    }
+                    std::vector<int> numWeightsAdded(mesh.vertices.size(), 0);
+                    for (uint32_t b = 0; b < aiMesh->mNumBones; ++b)
+                    {
+                        aiBone* bone = aiMesh->mBones[b];
+                        uint32_t boneIndex = TryAddBone(bone, *(model.skeleton), boneIndexLookup);
+
+                        for (uint32_t w = 0; w < bone->mNumWeights; ++w)
                         {
-                            vertex.boneIndieces[count] = boneIndex;
-                            vertex.boneWeights[count] = weight.mWeight;
-                            ++count;
+                            const aiVertexWeight& weight = bone->mWeights[w];
+                            auto& vertex = mesh.vertices[weight.mVertexId];
+                            auto& count = numWeightsAdded[weight.mVertexId];
+                            if (count < Vertex::MaxBoneWeights)
+                            {
+                                vertex.boneIndieces[count] = boneIndex;
+                                vertex.boneWeights[count] = weight.mWeight;
+                                ++count;
+                            }
                         }
                     }
                 }
@@ -351,7 +401,7 @@ int main(int argc, char* argv[])
 
 
 
-    if (scene->HasMaterials())
+    if (arguments.animationOnly && scene->HasMaterials())
     {
         printf("Reading materials...\n");
 
@@ -393,22 +443,85 @@ int main(int argc, char* argv[])
         {
             bone->offsetTransform._41 *= arguments.scale;
             bone->offsetTransform._42 *= arguments.scale;
-            bone->toParentTransform._43 *= arguments.scale;
+            bone->offsetTransform._43 *= arguments.scale;
             bone->toParentTransform._41 *= arguments.scale;
             bone->toParentTransform._42 *= arguments.scale;
             bone->toParentTransform._43 *= arguments.scale;
         }
     }
 
-    printf("Saving model...\n");
-    ModelIO::SaveModel(arguments.outputFileName, model);
+    if (arguments.animationOnly)
+    {
+        scene = importer.ReadFile(arguments.outputFileName.u8string().c_str(), flags);
+        if (scene == nullptr)
+        {
+            printf("Error:%s\n",importer.GetErrorString());
+                return -1;
+        }
+    }
 
-    printf("Saving materials...\n");
-    ModelIO::SaveMaterial(arguments.outputFileName, model);
+    if (scene->HasAnimations())
+    {
+        printf("Building animations...\n");
+        for (uint32_t animIndex = 0; animIndex < scene->mNumAnimations; ++animIndex)
+        {
+            const auto aiAnimation = scene->mAnimations[animIndex];
+            auto& animClip = model.animationClips.emplace_back();
+            if (aiAnimation->mName.length > 0)
+            {
+                animClip.name=aiAnimation->mName.C_Str();
+            }
+            else
+            {
+                animClip.name = "Anim" + std::to_string(animIndex);
+            }
+            animClip.tickDuration = static_cast<float>(aiAnimation->mDuration);
+            animClip.ticksPerSecond = static_cast<float>(aiAnimation->mTicksPerSecond);
 
-    printf("Saving skeleton...\n ");
-    ModelIO::SaveSkeleton(arguments.outputFileName, model);
+            printf("Reading bone animations for %s...\n", animClip.name.c_str());
+            animClip.boneAnimations.resize(model.skeleton->bones.size());
+            for (uint32_t boneAnimIndex = 0; boneAnimIndex < aiAnimation->mNumChannels; ++boneAnimIndex)
+            {
+                const auto aiBoneAnim = aiAnimation->mChannels[boneAnimIndex];
+                const int boneIndex = boneIndexLookup[aiBoneAnim->mNodeName.C_Str()];
+                auto& boneAnimation = animClip.boneAnimations[boneIndex];
+                boneAnimation = std::make_unique<Animation>();
 
+                AnimationBuilder builder;
+                for (uint32_t keyIndex = 0; keyIndex < aiBoneAnim->mNumPositionKeys; ++keyIndex)
+                {
+                    auto& posKey = aiBoneAnim->mPositionKeys[keyIndex];
+                    builder.AddPositionKey(ToVector3(posKey.mValue)* arguments.scale, static_cast<float>(posKey.mTime));
+                }
+                for (uint32_t keyIndex = 0; keyIndex < aiBoneAnim->mNumRotationKeys; ++keyIndex)
+                {
+                    auto& rotKey = aiBoneAnim->mRotationKeys[keyIndex];
+                    builder.AddRoatationKey(ToQuaternion(rotKey.mValue), static_cast<float>(rotKey.mTime));
+                }
+                for (uint32_t keyIndex = 0; keyIndex < aiBoneAnim->mNumScalingKeys; ++keyIndex)
+                {
+                    auto& scaleKey = aiBoneAnim->mScalingKeys[keyIndex];
+                    builder.AddScaleKey(ToVector3(scaleKey.mValue) , static_cast<float>(scaleKey.mTime));
+                }
+                *boneAnimation = builder.Build();
+            }
+        }
+    }
+
+    if (!arguments.animationOnly)
+    {
+        printf("Saving model...\n");
+        ModelIO::SaveModel(arguments.outputFileName, model);
+
+        printf("Saving materials...\n");
+        ModelIO::SaveMaterial(arguments.outputFileName, model);
+
+        printf("Saving skeleton...\n ");
+        ModelIO::SaveSkeleton(arguments.outputFileName, model);
+    }
+
+    printf("Saving animations...\n");
+    ModelIO::SaveAnimations(arguments.outputFileName, model);
     printf("All done!\n");
     return 0;
 }

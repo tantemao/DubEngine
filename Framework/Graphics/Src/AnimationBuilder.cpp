@@ -35,13 +35,13 @@ AnimationBuilder& AnimationBuilder::AddRoatationKey(const DEMath::Quaternion& ro
 }
 AnimationBuilder& AnimationBuilder::AddScaleKey(const DEMath::Vector3& scale, float time, EaseType easeType)
 {
-	PushKey(mWorkingCopy.mPositionKeys, scale, time,easeType);
+	PushKey(mWorkingCopy.mScaleKeys, scale, time,easeType);
 	mWorkingCopy.mDuration = Max(mWorkingCopy.mDuration, time);
 	return*this;
 }
 Animation AnimationBuilder::Build()
 {
 	ASSERT(!mWorkingCopy.mPositionKeys.empty() || !mWorkingCopy.mRotationKeys.empty() || !mWorkingCopy.mScaleKeys.empty(), "Animationbuilder");
-	ASSERT(mWorkingCopy.mDuration > 0.0f, "AnimationBuilder--Animation has no duration");
+	//ASSERT(mWorkingCopy.mDuration > 0.0f, "AnimationBuilder--Animation has no duration");
 	return std::move(mWorkingCopy);
 }
