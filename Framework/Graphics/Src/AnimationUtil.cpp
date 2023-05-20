@@ -2,40 +2,45 @@
 #include"AnimationUtil.h"
 #include"Colors.h"
 #include"SimpleDraw.h"
-
+#include"Animator.h"
 using namespace DubEngine;
 using namespace DubEngine::Graphics;
 using namespace DubEngine::Graphics::AnimationUtil;
 
 namespace
 {
-	void ConputeBoneTransformRecursive(const Bone* bone, Bonetransforms& boneTransforms)
+	void ConputeBoneTransformRecursive(const Bone* bone, Bonetransforms& boneTransforms,const Animator* animator)
 	{
 		if (bone != nullptr)
 		{
-			if (bone->parent != nullptr)
+			if (animator != nullptr)
 			{
-				boneTransforms[bone->index] = bone->toParentTransform * boneTransforms[bone->parentIndex];
+				boneTransforms[bone->index] = animator->GetToParentTransform(bone);
 			}
-			else
+			else 
 			{
 				boneTransforms[bone->index] = bone->toParentTransform;
+
+			}
+			if (bone->parent != nullptr)
+			{
+				boneTransforms[bone->index] = animator->GetToParentTransform(bone) * boneTransforms[bone->parentIndex];
 			}
 			for (auto child : bone->children)
 			{
-				ConputeBoneTransformRecursive(child, boneTransforms);
+				ConputeBoneTransformRecursive(child, boneTransforms,animator);
 			}
 		}
 	}
 }
 
-void AnimationUtil::ComputeBoneTransform(ModelId modelId, Bonetransforms& boneTransforms)
+void AnimationUtil::ComputeBoneTransform(ModelId modelId, Bonetransforms& boneTransforms, const Animator* animator)
 {
 	auto model = ModelManager::Get()->GetModel(modelId);
 	if (model->skeleton!=nullptr)
 	{
 		boneTransforms.resize(model->skeleton->bones.size(), DEMath::Matrix4::Identity);
-		ConputeBoneTransformRecursive(model->skeleton->root, boneTransforms);
+		ConputeBoneTransformRecursive(model->skeleton->root, boneTransforms,animator);
 	}
 }
 void AnimationUtil::ApplyBoneOffsets(ModelId modelId, Bonetransforms& boneTransforms)

@@ -23,8 +23,17 @@ void GameState::Initialize()
 	mGround.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mGround.material.power = 10.0f;
 
+	auto mm = ModelManager::Get();
+	mCharacterModelId = mm->LoadModel(L"../../Assert/Models/Jones/character.model");
+	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
+	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
+	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
+	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
+
 	mCharacterModelId = ModelManager::Get()->LoadModel("../../Assets/Models/Jones/Dancing.model");
-	mCharacter = CreateRenderGroup(mCharacterModelId);
+	mCharacterAnimator.Initialize(mCharacterModelId);
+	mCharacter = CreateRenderGroup(mCharacterModelId,&mCharacterAnimator);
+	mCharacterAnimator.PlayAnimation(0, true);
 
 	mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
 	mStandardEffect.SetCamera(mCamera);
@@ -32,15 +41,17 @@ void GameState::Initialize()
 }
 void GameState::Terminate()
 {
+	CleanupRenderGroup(mCharacter);
 
 	mStandardEffect.Terminate();
 	mGround.Terminate();
 	
 
 }
-
+int gAnimationIndex = 0;
 void GameState::Update(float deltaTime)
 {
+	mCharacterAnimator.Update(deltaTime);
 	// movement
 	auto input = InputSystem::Get();
 	const float moveSpeed = input->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 1.0f;
@@ -73,6 +84,22 @@ void GameState::Update(float deltaTime)
 		mCamera.Rise(-moveSpeed * deltaTime);
 	}
 
+	if (input -> IsKeyPressed(KeyCode::UP))
+	{
+		int animCount=mCharacterAnimator.GetAnimationCount();
+		gAnimationIndex = (gAnimationIndex + 1) % animCount;
+		mCharacterAnimator.PlayAnimation(gAnimationIndex, true);
+	}
+	if (input->IsKeyPressed(KeyCode::DOWN))
+	{
+		int animCount = mCharacterAnimator.GetAnimationCount();
+		gAnimationIndex = (gAnimationIndex - 1);
+		if (gAnimationIndex < 0)
+		{
+			gAnimationIndex = animCount - 1;
+		}
+		mCharacterAnimator.PlayAnimation(gAnimationIndex, true);
+	}
 	if (input->IsMouseDown(MouseButton::RBUTTON))
 	{
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
@@ -93,7 +120,7 @@ void GameState::Render()
 		if (mDrawSkeleton)
 		{
 			AnimationUtil::Bonetransforms boneTransforms;
-			AnimationUtil::ComputeBoneTransform(mCharacterModelId, boneTransforms);
+			AnimationUtil::ComputeBoneTransform(mCharacterModelId, boneTransforms,&mCharacterAnimator);
 			AnimationUtil::DrawSkeleton(mCharacterModelId, boneTransforms);
 
 			SimpleDraw::Render(mCamera);

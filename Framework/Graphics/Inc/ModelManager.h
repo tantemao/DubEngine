@@ -23,6 +23,7 @@ namespace DubEngine::Graphics
 
 		ModelId GetModelId(const std::filesystem::path& filPath);
 		ModelId LoadModel(const std::filesystem::path& filPath);
+		void  AddAnimation(ModelId id, const std::filesystem::path& filepath);
 		const Model* GetModel(ModelId id);
 
 	private:

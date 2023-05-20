@@ -22,6 +22,7 @@ protected:
     ModelId mCharacterModelId;
     RenderGroup mCharacter;
     RenderObject mGround;
+    Animator mCharacterAnimator;
     StandardEffect mStandardEffect;
 
     bool mDrawSkeleton;
