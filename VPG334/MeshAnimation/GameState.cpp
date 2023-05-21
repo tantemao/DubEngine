@@ -24,13 +24,12 @@ void GameState::Initialize()
 	mGround.material.power = 10.0f;
 
 	auto mm = ModelManager::Get();
-	mCharacterModelId = mm->LoadModel(L"../../Assert/Models/Jones/character.model");
-	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
-	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
-	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
-	mm->AddAnimation(mCharacterModelId, "L../../Assets/Models/Jones/animations/mutantswiping.animset");
+	mCharacterModelId = mm->LoadModel(L"../../Assets/Models/Jones/character.model");
+	mm->AddAnimation(mCharacterModelId, L"../../Assets/Models/Jones/animations/Dancing.animset");
+	mm->AddAnimation(mCharacterModelId, L"../../Assets/Models/Jones/animations/Dancing2.animset");
 
-	mCharacterModelId = ModelManager::Get()->LoadModel("../../Assets/Models/Jones/Dancing.model");
+
+	//mCharacterModelId = ModelManager::Get()->LoadModel("../../Assets/Models/Jones/Dancing.model");
 	mCharacterAnimator.Initialize(mCharacterModelId);
 	mCharacter = CreateRenderGroup(mCharacterModelId,&mCharacterAnimator);
 	mCharacterAnimator.PlayAnimation(0, true);
@@ -88,7 +87,7 @@ void GameState::Update(float deltaTime)
 	{
 		int animCount=mCharacterAnimator.GetAnimationCount();
 		gAnimationIndex = (gAnimationIndex + 1) % animCount;
-		mCharacterAnimator.PlayAnimation(gAnimationIndex, true);
+		mCharacterAnimator.PlayAnimation(gAnimationIndex, true,2.0f);
 	}
 	if (input->IsKeyPressed(KeyCode::DOWN))
 	{

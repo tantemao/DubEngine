@@ -401,7 +401,7 @@ int main(int argc, char* argv[])
 
 
 
-    if (arguments.animationOnly && scene->HasMaterials())
+    if (!arguments.animationOnly && scene->HasMaterials())
     {
         printf("Reading materials...\n");
 

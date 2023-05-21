@@ -153,4 +153,8 @@ namespace DubEngine::DEMath
 	{
 		return { m._41, m._42, m._43 };
 	}
+	inline Vector3 GetScale(const Matrix4& m)
+	{
+		return{ m._11, m._22, m._33 };
+	}
 }

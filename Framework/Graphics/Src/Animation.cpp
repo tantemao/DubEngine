@@ -35,10 +35,6 @@ namespace
 }
 Vector3 Animation::GetPosition(float time) const
 {
-	if (mPositionKeys.size() == 1)
-	{
-		return mPositionKeys[0].key;
-	}
 	for (int i = 0; i < mPositionKeys.size(); ++i)
 	{
 		if (time < mPositionKeys[i].time)
@@ -51,14 +47,15 @@ Vector3 Animation::GetPosition(float time) const
 			return mPositionKeys[i].key;
 		}
 	}
+	if (mPositionKeys.size() > 0)
+	{
+		return mPositionKeys[mPositionKeys.size() - 1].key;
+	}
 	return Vector3::Zero;
 }
 Quaternion Animation::GetRoatation(float time)const
 {
-	if (mRotationKeys.size() == 1)
-	{
-		return mRotationKeys[0].key;
-	}
+	
 	for (int i = 0; i < mRotationKeys.size(); ++i)
 	{
 		if (time < mRotationKeys[i].time)
@@ -71,15 +68,16 @@ Quaternion Animation::GetRoatation(float time)const
 			return mRotationKeys[i].key;
 		}
 	}
+	if (mRotationKeys.size() > 0)
+	{
+		return mRotationKeys[mRotationKeys.size() - 1].key;
+	}
 	return Quaternion::Zero;
 
 }
 Vector3 Animation::GetScale(float time) const
 {
-	if (mScaleKeys.size() == 1)
-	{
-		return mScaleKeys[0].key;
-	}
+	
 	for (int i = 0; i < mScaleKeys.size(); ++i)
 	{
 		if (time < mScaleKeys[i].time)
@@ -92,7 +90,11 @@ Vector3 Animation::GetScale(float time) const
 			return mScaleKeys[i].key;
 		}
 	}
-	return Vector3::Zero;
+	if (mScaleKeys.size() > 0)
+	{
+		return mScaleKeys[mScaleKeys.size() - 1].key;
+	}
+	return Vector3::One;
 
 }
 Transform Animation::GetTransform(float time) const

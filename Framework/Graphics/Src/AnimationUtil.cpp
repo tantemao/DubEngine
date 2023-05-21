@@ -24,8 +24,9 @@ namespace
 			}
 			if (bone->parent != nullptr)
 			{
-				boneTransforms[bone->index] = animator->GetToParentTransform(bone) * boneTransforms[bone->parentIndex];
+				boneTransforms[bone->index] = boneTransforms[bone->index] * boneTransforms[bone->parentIndex];
 			}
+
 			for (auto child : bone->children)
 			{
 				ConputeBoneTransformRecursive(child, boneTransforms,animator);
@@ -50,10 +51,7 @@ void AnimationUtil::ApplyBoneOffsets(ModelId modelId, Bonetransforms& boneTransf
 	{
 		for (auto& bone : model->skeleton->bones)
 		{
-			if (bone->parent != nullptr)
-			{
-				boneTransforms[bone->index] = bone->offsetTransform * boneTransforms[bone->index];
-			}
+			boneTransforms[bone->index] = bone->offsetTransform * boneTransforms[bone->index];
 		}
 	}
 

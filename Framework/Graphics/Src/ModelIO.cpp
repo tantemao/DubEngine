@@ -25,7 +25,7 @@ void AnimationIO:: Write(FILE* file, const Animation& animation)
     }
     count = animation.mScaleKeys.size();
     fprintf_s(file, "ScleKeysCount:%d\n", count);
-    for (auto& k : animation.mPositionKeys)
+    for (auto& k : animation.mScaleKeys)
     {
         fprintf_s(file, "%f %f %f %f\n", k.time, k.key.x, k.key.y, k.key.z);
     }
@@ -403,7 +403,7 @@ void ModelIO::LoadAnimations(std::filesystem::path filePath, Model& model)
         auto& animClipData = model.animationClips.emplace_back();
 
         char animClipName[MAX_PATH]{};
-        fscanf_s(file, "Animaton ClipName: %s\n", animClipName,(uint32_t)sizeof(animClipName));
+        fscanf_s(file, "AnimationClipName: %s\n", animClipName,(uint32_t)sizeof(animClipName));
         animClipData.name = std::move(animClipName);
         fscanf_s(file, "TickDuration:%f\n", &animClipData.tickDuration);
         fscanf_s(file, "TicksPerSecond:%f\n", &animClipData.ticksPerSecond);

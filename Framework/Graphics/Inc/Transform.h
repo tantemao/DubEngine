@@ -10,6 +10,13 @@ namespace DubEngine::Graphics
         DEMath::Quaternion rotation = DEMath::Quaternion::Identity;
         DEMath::Vector3 scale = DEMath::Vector3::One;
 
+        Transform() = default;
+        Transform (const DEMath::Matrix4& m)
+        {
+            position = DEMath::GetTranslation(m);
+            rotation = DEMath::Quaternion::CreateFromRotationMatrix(m);
+            scale = DEMath::GetScale(m);
+        }
         DEMath::Matrix4 GetMatrix4() const
         {
             return {

@@ -35,6 +35,7 @@ cbuffer SettingsBuffer : register(b4)
 	bool useDisplacementMap;
 	bool useNormalMap;
 	bool useShadowMap;
+	bool useSkinning;
 	float depthBias;
 }
 
@@ -52,8 +53,8 @@ struct VS_INPUT
 	float3 normal : NORMAL;
 	float3 tangent : TANGENT;
 	float2 texCoord : TEXCOORD;
-	int4 blendIndices :BLENDINCICES;
-	float4 blendWeights :BLENDWEIGHTs;
+	int4 blendIndices : BLENDINDICES;
+	float4 blendWeights : BLENDWEIGHT;
 };
 
 struct VS_OUTPUT
@@ -83,9 +84,9 @@ matrix GetBoneTransform(int4 indices, float4 weights)
 
 	}
 	matrix transform = boneTransforms[indices[0] * weights[0]];
-	transform += boneTransforms[indices[1]] * weight[1];
-	transform += boneTransforms[indices[2]] * weight[2];
-	transform += boneTransforms[indices[3]] * weight[3];
+	transform += boneTransforms[indices[1]] * weights[1];
+	transform += boneTransforms[indices[2]] * weights[2];
+	transform += boneTransforms[indices[3]] * weights[3];
 
 	return transform;
 }
@@ -101,7 +102,7 @@ VS_OUTPUT VS(VS_INPUT input)
 	{
 		matrix boneTransform = GetBoneTransform(input.blendIndices, input.blendWeights);
 		toWorld = mul(boneTransform, toWorld);
-		toNDC = mull(boneTransform, toNDC);
+		toNDC = mul(boneTransform, toNDC);
 	}
 	float3 localPosition = input.position;
 	if (useDisplacementMap)

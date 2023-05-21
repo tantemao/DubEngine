@@ -1,2 +1,6 @@
 -scale 0.01 ../../Assets/Models/Jones/character.fbx ../../Assets/Models/Jones/character.model
 -scale 0.01 ../../Assets/Models/Jones/Dancing.fbx ../../Assets/Models/Jones/Dancing.model
+-scale 0.01 ../../Assets/Models/Jones/Dancing2.fbx ../../Assets/Models/Jones/Dancing2.model
+
+-scale 0.01 -animationOnly 1 ../../Assets/Models/Jones/character.fbx ../../Assets/Models/Jones/animations/Dancing.fbx
+-scale 0.01 -animationOnly 1 ../../Assets/Models/Jones/character.fbx ../../Assets/Models/Jones/animations/Dancing2.fbx
