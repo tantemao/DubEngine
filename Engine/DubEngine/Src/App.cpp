@@ -7,6 +7,7 @@ using namespace DubEngine;
 using namespace DubEngine::Core;
 using namespace DubEngine::Graphics;
 using namespace DubEngine::Input;
+using namespace DubEngine::Physics;
 
 void App::ChangeState(size_t stateId)
 {
@@ -40,7 +41,11 @@ void App::Run(const AppConfig& config)
     SimpleDraw::StaticInitialize(config.debugDrawLimit);
     TextureManager::StaticInitialize("../../Assets/");
     ModelManager::StaticInitialize();
-
+    PhysicWorld::Settings settings = {
+        config.gravity,
+        config.simulationSteps,
+        config.fixedTimeStep
+    };
     ASSERT(mCurrentState, "App -- no app state found!");
     mCurrentState->Initialize();
 
@@ -74,6 +79,7 @@ void App::Run(const AppConfig& config)
         auto deltaTime = TimeUtil::GetDeltaTime();
         if (deltaTime < 0.5f)
         {
+            PhysicsWorld::Get()->Update(deltaTime);
             mCurrentState->Update(deltaTime);
         }
 
@@ -90,6 +96,8 @@ void App::Run(const AppConfig& config)
 
     mCurrentState->Terminate();
 
+    PhysicsWorld::StaticTerminate();
+    ModelManager::StaticTerminate();
     TextureManager::StaticTerminate();
     SimpleDraw::StaticTerminate();
     DebugUI::StaticTerminate();

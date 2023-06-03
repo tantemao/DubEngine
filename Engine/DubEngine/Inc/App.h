@@ -10,6 +10,9 @@ namespace DubEngine
         uint32_t winWidth = 1280;
         uint32_t winHeight = 720;
         uint32_t debugDrawLimit = 1000000;
+        Vector3 gravity = { 0.0f,-9.81f,0.0f };
+        int simulationSteps = 10;
+        float fixedTimeStep = 1.0f / 60.0f;
     };
 
     class App final
