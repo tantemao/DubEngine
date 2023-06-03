@@ -2,6 +2,7 @@
 namespace DubEngine::Physics
 {
 	class PhysicsDebugDrawer;
+	class RigidBody;
 
 	class PhysicsWorld final
 	{
@@ -23,6 +24,10 @@ namespace DubEngine::Physics
 		void Update(float deltaTime);
 		void DebugUI();
 	private:
+		friend class RigidBody;
+		void Register(RigidBody* rigidBody);
+		void Unregister(RigidBody* rigidBody);
+
 		Settings mSettings;
 		btBroadphaseInterface* mInterface = nullptr;
 		btCollisionDispatcher* mDispatcher = nullptr;
@@ -31,6 +36,9 @@ namespace DubEngine::Physics
 		btSequentialImpulseConstraintSolver* mSolver = nullptr;
 
 		PhysicsDebugDrawer* mDebugDrawer = nullptr;
+
+		using RigidBodies = std::vector<RigidBody*>;
+		RigidBodies mRigidBodies;
 		bool mRenderDebugUI = false;
 	};
 }

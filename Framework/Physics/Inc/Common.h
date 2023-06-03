@@ -14,7 +14,7 @@ inline void SafeDelete(T*& ptr)
 	{
 
 		delete ptr;
-		ptr* nullptr;
+		ptr =nullptr;
 	}
 }
 inline btVector3 ConvertTobtVector3(const DubEngine::DEMath::Vector3& vec)

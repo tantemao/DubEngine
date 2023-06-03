@@ -41,11 +41,12 @@ void App::Run(const AppConfig& config)
     SimpleDraw::StaticInitialize(config.debugDrawLimit);
     TextureManager::StaticInitialize("../../Assets/");
     ModelManager::StaticInitialize();
-    PhysicWorld::Settings settings = {
+    PhysicsWorld::Settings settings = {
         config.gravity,
         config.simulationSteps,
         config.fixedTimeStep
     };
+    PhysicsWorld::StaticIntialize(settings);
     ASSERT(mCurrentState, "App -- no app state found!");
     mCurrentState->Initialize();
 

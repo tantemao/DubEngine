@@ -1,6 +1,7 @@
 #include"Precompiled.h"
 #include"PhysicsWorld.h"
 #include"PhysicsDebugDrawer.h"
+#include"RigidBody.h"
 using namespace DubEngine;
 using namespace DubEngine::Physics;
 namespace
@@ -10,6 +11,8 @@ namespace
 void PhysicsWorld::StaticIntialize(const Settings& settings)
 {
 	ASSERT(sPhysicsWorld == nullptr, "PhysicsWorld: is already initialized");
+	sPhysicsWorld = std::make_unique<PhysicsWorld>();
+	sPhysicsWorld->Intialize(settings);
 }
 void PhysicsWorld::StaticTerminate()
 {
@@ -54,6 +57,10 @@ void PhysicsWorld::Terminate()
 void PhysicsWorld::Update(float deltaTime)
 {
 	mDynamicWorld->stepSimulation(deltaTime, mSettings.simulationSteps, mSettings.fixedTimeStep);
+	for (auto& rb : mRigidBodies)
+	{
+		rb->UpdateTransform();
+	}
 
 }
 void PhysicsWorld::DebugUI()
@@ -63,4 +70,32 @@ void PhysicsWorld::DebugUI()
 		mDynamicWorld->debugDrawWorld();
 	}
 
+}
+
+void PhysicsWorld::Register(RigidBody* rigidBody)
+{
+	if (rigidBody != nullptr)
+	{
+		mRigidBodies.push_back(rigidBody);
+		if (rigidBody->GetRigidBody() != nullptr)
+		{
+			mDynamicWorld->addRigidBody(rigidBody->GetRigidBody());
+		}
+	}
+
+}
+void PhysicsWorld::Unregister(RigidBody* rigidBody)
+{
+	if (rigidBody != nullptr)
+	{
+		auto iter = std::find(mRigidBodies.begin(), mRigidBodies.end(), rigidBody);
+		if (iter != mRigidBodies.end())
+		{
+			if (rigidBody->GetRigidBody() != nullptr)
+			{
+				mDynamicWorld->removeRigidBody(rigidBody->GetRigidBody());
+			}
+			mRigidBodies.erase(iter);
+		}
+	}
 }
