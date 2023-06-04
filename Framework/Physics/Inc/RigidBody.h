@@ -7,12 +7,14 @@ namespace DubEngine::Graphics
 }
 namespace DubEngine::Physics
 {
+	class CollisionShape;
+
 	class RigidBody final
 	{
 	public:
 		RigidBody() = default;
 		~RigidBody();
-		void Initialize( Graphics::Transform& graphicsTransform ,float mass = 0.0f);
+		void Initialize( Graphics::Transform& graphicsTransform ,const CollisionShape& shape,float mass = 0.0f);
 		void Terminate();
 		//void SetPosition(const DubEngine::DEMath::Vector3)
 		bool IsDynamic() const;

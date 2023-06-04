@@ -65,8 +65,21 @@ void PhysicsWorld::Update(float deltaTime)
 }
 void PhysicsWorld::DebugUI()
 {
+	ImGui::Checkbox("RenderPhysics##", &mRenderDebugUI);
 	if (mRenderDebugUI)
 	{
+		int debugMode = mDebugDrawer->getDebugMode();
+		bool isEnabled = (debugMode & btIDebugDraw::DBG_DrawWireframe) > 0;
+		if (ImGui::Checkbox("[DBG]DrawWireFrame##", &isEnabled))
+		{
+			debugMode = (isEnabled) ? debugMode | btIDebugDraw::DBG_DrawWireframe : debugMode & ~btIDebugDraw::DBG_DrawWireframe;
+		}
+		isEnabled = (debugMode & btIDebugDraw::DBG_DrawAabb) > 0;
+		if (ImGui::Checkbox("[DBG]DrawAabb##", &isEnabled))
+		{
+			debugMode = (isEnabled) ? debugMode | btIDebugDraw::DBG_DrawAabb : debugMode & ~btIDebugDraw::DBG_DrawAabb;
+		}
+		mDebugDrawer->setDebugMode(debugMode);
 		mDynamicWorld->debugDrawWorld();
 	}
 

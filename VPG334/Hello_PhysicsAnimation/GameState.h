@@ -23,7 +23,13 @@ protected:
    
     RenderObject mBall;
     RigidBody mBallRigidBody;
-    StandardEffect mStandardEffect;
+    CollisionShapeSphere mSphereCollisionShape;
 
+    RenderObject mGround;
+    RigidBody mGroundRigidBody;
+    CollisionShapeBox mGroundCollisionShape;
+
+    StandardEffect mStandardEffect;
+    
     bool mDrawSkeleton;
 };

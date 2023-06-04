@@ -1,21 +1,25 @@
 #include "Precompiled.h"
 #include "RigidBody.h"
+#include"CollisionShape.h"
 #include"PhysicsWorld.h"
 
 #include"Graphics/Inc/Transform.h"
+
 using namespace DubEngine;
 using namespace DubEngine::Physics;
+
+
 RigidBody::~RigidBody()
 {
 	ASSERT(mRigidBody == nullptr && mMotionState == nullptr, "RigidBody:terminate must be called first");
 }
-void RigidBody::Initialize(Graphics::Transform& graphicsTransform, float mass) 
+void RigidBody::Initialize(Graphics::Transform& graphicsTransform, const CollisionShape& shape, float mass)
 {
 	mGraphicsTransform = &graphicsTransform;
 	mMass = mass;
 	mMotionState = new btDefaultMotionState(ConvertTobtTransform(graphicsTransform));
 	
-	mRigidBody = new btRigidBody(mMass, mMotionState, nullptr);
+	mRigidBody = new btRigidBody(mMass, mMotionState,shape.GetCollisionShape());
 	PhysicsWorld::Get()->Register(this);
 }
 void RigidBody::Terminate()
