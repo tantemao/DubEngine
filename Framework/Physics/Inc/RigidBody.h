@@ -19,9 +19,9 @@ namespace DubEngine::Physics
 		//void SetPosition(const DubEngine::DEMath::Vector3)
 		bool IsDynamic() const;
 		void UpdateTransform();
+		btRigidBody* GetRigidBody() const;
 	private:
 		friend class PhysicsWorld;
-		btRigidBody* GetRigidBody() { return mRigidBody; }
 		btRigidBody* mRigidBody = nullptr;
 		btDefaultMotionState* mMotionState = nullptr;
 		float mMass = 0.0f;

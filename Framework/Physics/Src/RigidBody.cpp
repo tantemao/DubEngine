@@ -13,15 +13,24 @@ RigidBody::~RigidBody()
 {
 	ASSERT(mRigidBody == nullptr && mMotionState == nullptr, "RigidBody:terminate must be called first");
 }
+
 void RigidBody::Initialize(Graphics::Transform& graphicsTransform, const CollisionShape& shape, float mass)
 {
 	mGraphicsTransform = &graphicsTransform;
 	mMass = mass;
 	mMotionState = new btDefaultMotionState(ConvertTobtTransform(graphicsTransform));
+
+	mRigidBody = new btRigidBody(mMass, mMotionState, shape.GetCollisionShape());
+
+	//make it bounce
+	mRigidBody->setRestitution(0.8f); // Adjust this value as per your requirements
+		
 	
-	mRigidBody = new btRigidBody(mMass, mMotionState,shape.GetCollisionShape());
+
 	PhysicsWorld::Get()->Register(this);
 }
+
+
 void RigidBody::Terminate()
 {
 	PhysicsWorld::Get()->Unregister(this);
@@ -37,3 +46,8 @@ void RigidBody::UpdateTransform()
 {
 	ApplybtTransformToTransform(mRigidBody->getWorldTransform(), *mGraphicsTransform);
 }
+
+btRigidBody* RigidBody::GetRigidBody() const {
+	return mRigidBody;
+}
+

@@ -12,15 +12,15 @@ public:
 
     virtual void Initialize() override;
     virtual void Terminate() override;
-    
+
     virtual void Update(float deltaTime) override;
     virtual void Render() override;
     virtual void DebugUI() override;
+
 protected:
     Camera mCamera;
     DirectionalLight mDirectionalLight;
 
-   
     RenderObject mBall;
     RigidBody mBallRigidBody;
     CollisionShapeSphere mSphereCollisionShape;
@@ -30,6 +30,9 @@ protected:
     CollisionShapeBox mGroundCollisionShape;
 
     StandardEffect mStandardEffect;
-    
+
+    float mYaw = 0.0f;
+    float mPitch = 0.0f;
+    float mRoll = 0.0f;
     bool mDrawSkeleton;
 };

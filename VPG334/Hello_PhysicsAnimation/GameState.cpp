@@ -4,7 +4,10 @@
 using namespace DubEngine::DEMath;
 using namespace DubEngine::Input;
 using namespace DubEngine::Graphics;
-
+bool mIsRollingForward = false;
+bool mIsRollingBack = false;
+bool mIsRollingLeft = false;
+bool mIsRollingRight = false;
 void GameState::Initialize()
 {
 	mCamera.SetPosition({ 0.0f, 1.0f, -10.0f });
@@ -33,9 +36,11 @@ void GameState::Initialize()
 	mGround.material.diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 	mGround.material.specular = { 0.5f, 0.5f, 0.5f, 1.0f };
 	mGround.material.power = 10.0f;
-
 	mGroundCollisionShape.Initialize({10.0f,0.005f,10.0f});
 	mGroundRigidBody.Initialize(mGround.transform, mGroundCollisionShape);
+
+
+
 
 	mStandardEffect.Initialize(L"../../Assets/Shaders/Standard.fx");
 	mStandardEffect.SetCamera(mCamera);
@@ -58,6 +63,9 @@ void GameState::Update(float deltaTime)
 	auto input = InputSystem::Get();
 	const float moveSpeed = input->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 1.0f;
 	const float turnSpeed = 0.1f;
+	const float ballTurnSpeed = 1.0f;
+	btRigidBody* ballBody = mBallRigidBody.GetRigidBody();
+
 
 	if (input->IsKeyDown(KeyCode::W))
 	{
@@ -86,14 +94,132 @@ void GameState::Update(float deltaTime)
 		mCamera.Rise(-moveSpeed * deltaTime);
 	}
 
-	
+
 	if (input->IsMouseDown(MouseButton::RBUTTON))
 	{
 		mCamera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
 		mCamera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
 	}
 
+	if (input->IsKeyDown(KeyCode::P))
+	{
+		// Reset ball's position
+		mBall.transform.position = { 0.0f, 10.0f, 0.0f };
+
+		// Reset ball's velocity
+		if (ballBody)
+		{
+			ballBody->setLinearVelocity(btVector3(0, 0, 0));
+			ballBody->setAngularVelocity(btVector3(0, 0, 0));
+
+			// Set transform
+			btTransform newTransform;
+			newTransform.setIdentity();
+			newTransform.setOrigin(btVector3(mBall.transform.position.x, mBall.transform.position.y, mBall.transform.position.z));
+			ballBody->setWorldTransform(newTransform);
+		}
+	}
+
+
+	if (input->IsKeyDown(KeyCode::SPACE))
+	{
+
+		if (ballBody)
+		{
+			btVector3 impulse(0.0f, 2.0f, 0.0f);
+			ballBody->applyCentralImpulse(impulse);
+		}
+	}
+	if (input->IsKeyDown(KeyCode::J))
+	{
+		mIsRollingLeft = true;
+		mIsRollingRight = false;
+		if (ballBody)
+		{
+			btVector3 impulse(-2.0f, 0.0f, 0.0f);
+			ballBody->applyCentralImpulse(impulse);
+		}
+	}
+	else if (input->IsKeyDown(KeyCode::L))
+	{
+		mIsRollingRight = true;
+		mIsRollingLeft = false;
+		if (ballBody)
+		{
+			btVector3 impulse(2.0f, 0.0f, 0.0f);
+			ballBody->applyCentralImpulse(impulse);
+		}
+	}
+	if (input->IsKeyDown(KeyCode::I))
+	{
+		mIsRollingForward = true;
+		mIsRollingBack = false;
+		if (ballBody)
+		{
+			btVector3 impulse(0.0f, 0.0f, 2.0f);
+			ballBody->applyCentralImpulse(impulse);
+		}
+	}
+	else if (input->IsKeyDown(KeyCode::K))
+	{
+		mIsRollingBack = true;
+		mIsRollingForward = false;
+		if (ballBody)
+		{
+			btVector3 impulse(0.0f, 0.0f, -2.0f);
+			ballBody->applyCentralImpulse(impulse);
+		}
+	}
+
 	
+
+	
+	if (ballBody)
+	{
+		// Check the linear velocity magnitude
+		float velocityMagnitude = ballBody->getLinearVelocity().length();
+		const float velocityThreshold = 0.1f;
+
+		if (velocityMagnitude < velocityThreshold)
+		{
+			// Reset the pitch and roll
+			mPitch = 0.0f;
+			mRoll = 0.0f;
+		}
+		else
+		{
+			// Apply pitch and roll based on the rolling direction
+			if (mIsRollingLeft)
+			{
+				mRoll += ballTurnSpeed * deltaTime;
+			}
+			if (mIsRollingRight)
+			{
+				mRoll -= ballTurnSpeed * deltaTime;
+			}
+
+			if (mIsRollingForward)
+			{
+				mPitch += ballTurnSpeed * deltaTime;
+			}
+			if (mIsRollingBack)
+			{
+				mPitch -= ballTurnSpeed * deltaTime;
+			}
+		}
+
+		// Update the ball's rotation
+		mBall.transform.rotation = Quaternion::CreateFromYawPitchRoll(mYaw, mPitch, mRoll);
+
+		// Update the rotation of the ball's rigid body
+		auto quaternion = mBall.transform.rotation;
+		btQuaternion btQuat(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+		btTransform trans = ballBody->getWorldTransform();
+		trans.setRotation(btQuat);
+		ballBody->setWorldTransform(trans);
+	}
+
+
 	
 }
 
@@ -106,6 +232,9 @@ void GameState::Render()
 		mStandardEffect.Render(mGround);
 
 	mStandardEffect.End();
+
+
+
 	SimpleDraw::AddGroundPlane(20.0f, Colors::PaleVioletRed);
 	SimpleDraw::Render(mCamera);
 }

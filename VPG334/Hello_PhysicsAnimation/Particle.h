@@ -18,5 +18,5 @@ public:
 	void Initialize(const ParticleInfo& info);
 private:
 	float mLifeTime = 0.0f;
-	DubEngine::Color mStartColor=DubEngine::Colors
+	DubEngine::Color mStartColor = DubEngine::Colors::White;
 };
