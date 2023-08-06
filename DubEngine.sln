@@ -106,6 +106,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Final", "VPG334\Final\Final
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello_PhysicsAnimation", "VPG334\Hello_PhysicsAnimation\Hello_PhysicsAnimation.vcxproj", "{B5002F59-F49B-4C11-A057-3CA940DA9911}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP336", "VGP336", "{29637CAB-8449-42AE-A531-5FEB46D92E3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
