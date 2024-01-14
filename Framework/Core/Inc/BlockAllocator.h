@@ -4,7 +4,7 @@ namespace DubEngine::Core
 	class BlockAllocator
 	{
 	public:
-		BlockAllocator(const char* name, size_t blockSiz,size_t capacity);
+		BlockAllocator(const char* name, size_t blockSiz, size_t capacity);
 		virtual ~BlockAllocator();
 
 		BlockAllocator(const BlockAllocator&) = delete;

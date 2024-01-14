@@ -15,6 +15,7 @@ BlockAllocator::BlockAllocator(const char* name, size_t blockSize, size_t capaci
 	ASSERT(blockSize > 0, "BlockAllocator:invalid block size");
 	ASSERT(capacity > 0, "BlockAllocator: invalid capacity");
 	mData = std::malloc(blockSize * capacity);
+
 	for (size_t i = 0; i < capacity; ++i)
 	{
 		mFreeBlocks[i] = static_cast<uint8_t*>(mData) + (i * mBlockSize);
@@ -38,10 +39,13 @@ void* BlockAllocator::Allocate()
 
 	void* freeBlock = mFreeBlocks.back();
 	mFreeBlocks.pop_back();
+
 	++mBlocksAllocatedTotal;
 	++mBlocksAllocatedCurrent;
 	mBlocksHighest = std::max(mBlocksHighest, mBlocksAllocatedCurrent);
 	LOG("%s allocated blocks at %p, Allocated: %zu,HighestCount: %zu", mName.c_str(), freeBlock, mBlocksAllocatedCurrent, mBlocksHighest);
+
+	return freeBlock;
 }
 void BlockAllocator::Free(void* ptr)
 {

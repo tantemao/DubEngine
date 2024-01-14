@@ -1,9 +1,10 @@
 #pragma once
 #include"BlockAllocator.h"
+
 namespace DubEngine::Core
 {
 	template<class DataType>
-	class TypedAllocator :private BlockAllocator
+	class TypedAllocator : private BlockAllocator
 	{
 	public:
 		TypedAllocator(const char* name, size_t capacity)
@@ -16,7 +17,8 @@ namespace DubEngine::Core
 		template<class... Args>
 		DataType* New(Args&&...args)
 		{
-			auto* instance = static_cast<DataType*>(Allocate());
+			DataType* instance = static_cast<DataType*>(Allocate());
+			//auto* instance = static_cast<DataType*>(Allocate());
 			new(instance) DataType(std::forward<Args>(args)...);
 
 			return instance;

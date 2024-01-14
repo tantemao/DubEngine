@@ -11,9 +11,9 @@ public:
 	{
 
 	}
-	Student(const std::string&name,int classMark)
+	Student(const std::string&name,int Mark)
 		:mName(name)
-		,mClassMark(classMark)
+		,mMark(Mark)
 	{
 
 	}
@@ -23,23 +23,49 @@ public:
 
 	}
 
-	void SetStudent(int classMark)
+	void SetStudent(int Mark)
 	{
-		mClassMark = classMark;
+		mMark = Mark;
 	}
 private:
 	std::string mName;
-	int mClassMark;
+	int mMark;
 };
-int WINAPI WinmAIN(HINSTANCE instance, HINSTANCE, LPSTR, int)
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int)
 {
-	TypedAllocator studentPool = TypedAllocator<Student>("StudentPool", 100);
-	Student* a = studentPool.New("Frank");
-	Student* b = studentPool.New("Leon",97);
+	TypedAllocator studentPool = TypedAllocator<Student>("StudentPool", 200);
 
-	a->SetName("Frank");
-	b->SetName("Leon");
+	Student* a = studentPool.New("Jon");
+	Student* b = studentPool.New("Winter");
 
+	std::vector<Student*> students;
+	int count = 100;
+
+	for (int i = 0; i < 100; ++i)
+	{
+		std::string name = "Student" + std::to_string(i);
+		students.push_back(studentPool.New(name));
+	}
+	for (int i = 0; i < 20; ++i)
+	{
+		auto student = students.back();
+		students.pop_back();
+		studentPool.Delete(student);
+
+	}
+
+	for (int i = 0; i < 50; ++i)
+	{
+		std::string name = "Student" + std::to_string(i);
+		students.push_back(studentPool.New(name));
+	} 
+
+
+
+	for (auto student : students)
+	{
+		studentPool.Delete(student);
+	}
 
 	studentPool.Delete(a);
 	studentPool.Delete(b);
