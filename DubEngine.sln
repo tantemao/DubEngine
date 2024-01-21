@@ -110,6 +110,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VGP336", "VGP336", "{29637C
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelloMemory", "VGP336\HelloMemory\HelloMemory.vcxproj", "{1C5CFD60-CA7C-4082-AF5D-2F36C81B7F81}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Hello_GameObject", "VGP336\Hello_GameObject\Hello_GameObject.vcxproj", "{B40857F9-9531-4A8D-A789-4CAEDEAD863B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{456A175F-E688-42CF-BDA4-DB0DC73626CA}"
+	ProjectSection(SolutionItems) = preProject
+		Assets\Templates\text_object.json = Assets\Templates\text_object.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -358,6 +365,14 @@ Global
 		{1C5CFD60-CA7C-4082-AF5D-2F36C81B7F81}.Release|x64.Build.0 = Release|x64
 		{1C5CFD60-CA7C-4082-AF5D-2F36C81B7F81}.Release|x86.ActiveCfg = Release|Win32
 		{1C5CFD60-CA7C-4082-AF5D-2F36C81B7F81}.Release|x86.Build.0 = Release|Win32
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Debug|x64.ActiveCfg = Debug|x64
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Debug|x64.Build.0 = Debug|x64
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Debug|x86.ActiveCfg = Debug|Win32
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Debug|x86.Build.0 = Debug|Win32
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Release|x64.ActiveCfg = Release|x64
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Release|x64.Build.0 = Release|x64
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Release|x86.ActiveCfg = Release|Win32
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -395,6 +410,8 @@ Global
 		{B1382251-5FF6-491F-983F-81BF832513F4} = {A44E3697-51B9-4034-A157-001FC89EC410}
 		{B5002F59-F49B-4C11-A057-3CA940DA9911} = {A44E3697-51B9-4034-A157-001FC89EC410}
 		{1C5CFD60-CA7C-4082-AF5D-2F36C81B7F81} = {29637CAB-8449-42AE-A531-5FEB46D92E3A}
+		{B40857F9-9531-4A8D-A789-4CAEDEAD863B} = {29637CAB-8449-42AE-A531-5FEB46D92E3A}
+		{456A175F-E688-42CF-BDA4-DB0DC73626CA} = {DB66E137-FDF2-4045-BF25-D6310AC35C6C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19AAD3CD-1A1F-4140-B558-4CE2CAF52272}
