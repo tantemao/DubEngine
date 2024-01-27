@@ -42,6 +42,32 @@ namespace DubEngine
 			}
 			return false;
 		}
+		template<class ComponentType>
+		ComponentType* GetComponent()
+		{
+			static_assert(std::is_base_of_v<Component, ComponentType>, "Gameobject: COMPONENT");
+			for (auto& component : mComponents)
+			{
+				if (component->GetTypeId() == ComponentType::StaticGetTypeId())
+				{
+					return static_cast<ComponentType*>(component.get();
+				}
+			}
+			return nullptr;
+		}
+		template<class ComponentType>
+		const ComponentType* GetComponent()const
+		{
+			static_assert(std::is_base_of_v<Component, ComponentType>, "Gameobject: COMPONENT");
+			for (auto& component : mComponents)
+			{
+				if (component->GetTypeId() == ComponentType::StaticGetTypeId())
+				{
+					return static_cast<ComponentType*>(component.get();
+				}
+			}
+			return nullptr;
+		}
 	private:
 
 		std::string mName = "EMPTY";

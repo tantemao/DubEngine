@@ -5,10 +5,14 @@
 #include "AppState.h"
 #include "GameObject.h"
 #include "TypeIds.h"
+#include "GameObjectFactory.h"
 //component
 #include "Component.h"
 #include "TransformComponent.h"
-#include "GameObjectFactory.h"
+#include "CameraComponent.h"
+//services
+#include"Service.h"
+#include "CameraService.h"
 
 namespace DubEngine
 {

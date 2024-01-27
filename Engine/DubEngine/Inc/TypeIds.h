@@ -8,9 +8,17 @@ namespace DubEngine
 	{
 		Invalid,
 		Transform,
+		Camera,
 		Count
 	};
 
+	enum class ServiceId
+	{
+		Invalid,
+		Camera,
+
+		Count
+	};
 	/*enum class NewComponentId
 	{
 		newId0=

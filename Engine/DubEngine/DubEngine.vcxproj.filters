@@ -7,6 +7,18 @@
     <Filter Include="Src">
       <UniqueIdentifier>{a3fa9000-4fc6-4dd9-837f-02399212dfc9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Inc\Components">
+      <UniqueIdentifier>{75d06df9-7007-47f9-b96a-ee6fd73b1fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inc\Services">
+      <UniqueIdentifier>{17f1dc49-100a-4cd1-bbe1-d4af80d73da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Components">
+      <UniqueIdentifier>{9d4ed854-9efb-47a3-a872-2aba0ea057fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Services">
+      <UniqueIdentifier>{d98a0333-48f9-4bf6-95d6-7916539e6d50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Precompiled.h">
@@ -27,17 +39,26 @@
     <ClInclude Include="Inc\GameObject.h">
       <Filter>Inc</Filter>
     </ClInclude>
-    <ClInclude Include="Inc\Component.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Inc\TransformComponent.h">
-      <Filter>Inc</Filter>
-    </ClInclude>
     <ClInclude Include="Inc\TypeIds.h">
       <Filter>Inc</Filter>
     </ClInclude>
     <ClInclude Include="Inc\GameObjectFactory.h">
       <Filter>Inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Component.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\TransformComponent.h">
+      <Filter>Inc\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\Service.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\CameraService.h">
+      <Filter>Inc\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Inc\CameraComponent.h">
+      <Filter>Inc\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -53,11 +74,17 @@
     <ClCompile Include="Src\GameObject.cpp">
       <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="Src\TransformComponent.cpp">
-      <Filter>Src</Filter>
-    </ClCompile>
     <ClCompile Include="Src\GameObjectFactory.cpp">
       <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\TransformComponent.cpp">
+      <Filter>Src\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraService.cpp">
+      <Filter>Src\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\CameraComponent.cpp">
+      <Filter>Src\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
