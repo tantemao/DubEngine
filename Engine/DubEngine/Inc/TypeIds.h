@@ -9,6 +9,7 @@ namespace DubEngine
 		Invalid,
 		Transform,
 		Camera,
+		FPSCamera,
 		Count
 	};
 
@@ -16,6 +17,7 @@ namespace DubEngine
 	{
 		Invalid,
 		Camera,
+		Update,
 
 		Count
 	};

@@ -5,6 +5,7 @@
 
 namespace DubEngine
 {
+	class GameWorld;
 	class Service
 	{
 	public:
@@ -24,5 +25,12 @@ namespace DubEngine
 		virtual void Update(float deltaTime){}
 		virtual void Render() {}
 		virtual void DebugUI() {}
+
+		GameWorld& GetWorld() { return *mWorld; }
+		const GameWorld& GetWorld()const { return *mWorld; }
+	private:
+		friend class GameWorld;
+		GameWorld* mWorld = nullptr;
+
 	};
 }

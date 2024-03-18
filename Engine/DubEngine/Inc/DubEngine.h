@@ -12,10 +12,11 @@
 #include "Component.h"
 #include "TransformComponent.h"
 #include "CameraComponent.h"
+#include "FPSCameraComponent.h"
 //services
 #include "Service.h"
 #include "CameraService.h"
-
+#include "UpdateService.h"
 namespace DubEngine
 {
     App& MainApp();

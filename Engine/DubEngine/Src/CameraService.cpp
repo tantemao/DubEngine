@@ -5,6 +5,11 @@
 using namespace DubEngine;
 using namespace DubEngine::Graphics;
 
+void CameraService::DebugUI()
+{
+	SimpleDraw::Render(GetMain());
+}
+
 const Camera& CameraService::GetMain() const
 {
 	ASSERT(mMainCamera != nullptr, "CameraService: has no main camera");

@@ -15,9 +15,6 @@ public:
     void DebugUI();
 protected:
 
-    DubEngine::GameObject mGameObject;
-    DubEngine::GameObject mCameraGameObject1;
-    DubEngine::GameObject mCameraGameObject2;
-    DubEngine::CameraService mCameraService;
+    DubEngine::GameWorld mGameWorld;
 
 };

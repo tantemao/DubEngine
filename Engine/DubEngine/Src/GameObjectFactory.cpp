@@ -1,7 +1,9 @@
 #include"Precompiled.h"
 #include"GameObjectFactory.h"
 #include"GameObject.h"
+#include"CameraComponent.h"
 #include"TransformComponent.h"
+#include"FPSCameraComponent.h"
 
 using namespace DubEngine;
 namespace rj = rapidjson;
@@ -25,6 +27,16 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
 		{
 			TransformComponent* transformComponent = gameObject.AddComponent<TransformComponent>();
 			transformComponent->Deserialize(component.value);
+		}
+		else if (strcmp(componentName, "CameraComponent") == 0)
+		{
+			FPSCameraComponent* fpscameraComponent = gameObject.AddComponent<FPSCameraComponent>();
+			fpscameraComponent->Deserialize(component.value);
+		}
+		else if (strcmp(componentName, "FPSCameraComponent") == 0)
+		{
+			CameraComponent* cameraComponent = gameObject.AddComponent<CameraComponent>();
+			cameraComponent->Deserialize(component.value);
 		}
 		else
 		{

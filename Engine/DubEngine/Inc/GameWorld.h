@@ -19,15 +19,13 @@ namespace DubEngine
 		GameObject* GetGameObject(const GameObjectHandle& handle);
 		void DestoryGameObject(const GameObjectHandle& handle);
 
-		GameObject* CreatGameObject (const std::filesystem::path& templateFile);
-
 		template<class ServiceType>
 		ServiceType* AddService()
 		{
 			static_assert(std::is_base_of_v<Service, ServiceType>, "GameWorld:service must be of");
 			ASSERT(!mInitialized, "GameWorld: cant add service after world is inilized");
-			auto& newService = mServices.emplace_back(std::make_unique < ServiceType());
-
+			auto& newService = mServices.emplace_back(std::make_unique < ServiceType>());
+			newService->mWorld = this;
 			return static_cast<ServiceType*>(newService.get());
 		}
 
