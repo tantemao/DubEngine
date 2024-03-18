@@ -25,11 +25,15 @@ void GameState::Terminate()
 	mGameObject.Terminate();
 }
 
+void GameState::Render()
+{
+
+}
 void GameState::Update(float deltaTime)
 {
 
 	CameraComponent* cameraComponent = mCameraGameObject1.GetComponent<CameraComponent>();
-	Camera& camera = cameraComponent->GetCamera();
+	Camera & camera = cameraComponent->GetCamera();
 	auto input = InputSystem::Get();
 	const float moveSpeed = input->IsKeyDown(KeyCode::LSHIFT) ? 10.0f : 1.0f;
 	const float turnSpeed = 0.1f;
@@ -78,10 +82,6 @@ void GameState::Update(float deltaTime)
 	}
 }
 
-void GameState::Render()
-{
-
-}
 
 void GameState::DebugUI()
 {

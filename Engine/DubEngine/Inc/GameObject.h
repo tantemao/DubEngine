@@ -1,6 +1,7 @@
 #pragma once
 
 #include"Component.h"
+#include"GameObjectHandle.h"
 namespace DubEngine
 
 {
@@ -15,9 +16,14 @@ namespace DubEngine
 		void Update(float deltaTime);
 		void DebugUI();
 
-		void SetName(const std::string& name) { mName = std::move(name); }
+
+		void SetName(std::string& name) { mName = std::move(name); }
 		const std::string& GetName() const{ return mName; }
 		uint32_t GetUniqueId() const{ return mUniqueId; }
+
+		GameWorld& GetWorld() { return *mWorld; }
+		const GameWorld& GetWorld() const { return *mWorld; }
+		const GameObjectHandle& GetHandle() const { return mHandle; }
 
 		template<class ComponentType>
 		ComponentType* AddComponent()
@@ -50,7 +56,7 @@ namespace DubEngine
 			{
 				if (component->GetTypeId() == ComponentType::StaticGetTypeId())
 				{
-					return static_cast<ComponentType*>(component.get();
+					return static_cast<ComponentType*>(component.get());
 				}
 			}
 			return nullptr;
@@ -63,12 +69,15 @@ namespace DubEngine
 			{
 				if (component->GetTypeId() == ComponentType::StaticGetTypeId())
 				{
-					return static_cast<ComponentType*>(component.get();
+					return static_cast<ComponentType*>(component.get());
 				}
 			}
 			return nullptr;
 		}
 	private:
+		friend class GameWorld;
+		GameWorld* mWorld = nullptr;
+		GameObjectHandle mHandle;
 
 		std::string mName = "EMPTY";
 		bool mInitialized = false;

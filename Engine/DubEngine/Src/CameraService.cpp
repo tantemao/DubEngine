@@ -7,20 +7,29 @@ using namespace DubEngine::Graphics;
 
 const Camera& CameraService::GetMain() const
 {
-	ASSERT(mMainCamera != nullptr, "dsds");
-	return
+	ASSERT(mMainCamera != nullptr, "CameraService: has no main camera");
+	return mMainCamera->GetCamera();
 }
-class CameraComponent;
 
-//const Camera& CameraService final :public Service
+void CameraService::SetMainCamera(uint32_t index)
+{
+	if (index < mCameraEntries.size())
+	{
+		mMainCamera = mCameraEntries[index];
+	}
+}
 
 
 void CameraService::Register(const CameraComponent* cameraComponent)
 {
 	mCameraEntries.push_back(cameraComponent);
+	if (mMainCamera == nullptr)
+	{
+		mMainCamera = cameraComponent;
+	}
 }
 
-void CameraService::Register(const CameraComponent* cameraComponent)
+void CameraService::Unregister(const CameraComponent* cameraComponent)
 {
 	auto iter = std::find(mCameraEntries.begin(), mCameraEntries.end(), cameraComponent);
 	if (iter != mCameraEntries.end())
@@ -29,6 +38,10 @@ void CameraService::Register(const CameraComponent* cameraComponent)
 		{
 			mMainCamera = nullptr;
 		}
-		mCameraEntries.ease
+		mCameraEntries.erase(iter);
+		if (mMainCamera == nullptr && !mCameraEntries.empty())
+		{
+			mMainCamera = mCameraEntries.front();
+		}
 	}
 }

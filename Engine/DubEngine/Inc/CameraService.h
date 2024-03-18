@@ -11,6 +11,7 @@ namespace DubEngine
 		SET_TYPE_ID(ServiceId::Camera);
 
 		const Graphics::Camera& GetMain() const;
+		void SetMainCamera(uint32_t index);
 		void Register(const CameraComponent* cameraComponent);
 		void Unregister(const CameraComponent* cameraComponent);
 
