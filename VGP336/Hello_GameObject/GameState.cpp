@@ -9,7 +9,7 @@ void GameState::Initialize()
 	mCamera.SetLookAt({ 0.0f, 0.0f, 0.0f });
 	
 	
-	GameObjectFactory::Make("../../Assets/Templates/text_object.json", mGameObject);
+	GameObjectFactory::Make("../../Assets/Templates/test_object.json", mGameObject);
 	mGameObject.Initialize();
 }
 void GameState::Terminate()
