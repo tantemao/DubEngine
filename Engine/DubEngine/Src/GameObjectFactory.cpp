@@ -30,13 +30,13 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
 		}
 		else if (strcmp(componentName, "CameraComponent") == 0)
 		{
-			FPSCameraComponent* fpscameraComponent = gameObject.AddComponent<FPSCameraComponent>();
-			fpscameraComponent->Deserialize(component.value);
+			CameraComponent* cameraComponent = gameObject.AddComponent<CameraComponent>();
+			cameraComponent->Deserialize(component.value);
 		}
 		else if (strcmp(componentName, "FPSCameraComponent") == 0)
 		{
-			CameraComponent* cameraComponent = gameObject.AddComponent<CameraComponent>();
-			cameraComponent->Deserialize(component.value);
+			FPSCameraComponent* fpscameraComponent = gameObject.AddComponent<FPSCameraComponent>();
+			fpscameraComponent->Deserialize(component.value);
 		}
 		else
 		{

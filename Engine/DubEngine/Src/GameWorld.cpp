@@ -56,11 +56,6 @@ void GameWorld::Render()
 
 void GameWorld::DebugUI()
 {
-	for (auto& service : mServices)
-	{
-		service->DebugUI();
-	}
-
 	for (auto& slot : mGameObjectSlots)
 	{
 		if (slot.gameObject != nullptr)
@@ -68,6 +63,12 @@ void GameWorld::DebugUI()
 			slot.gameObject->DebugUI();
 		}
 	}
+	for (auto& service : mServices)
+	{
+		service->DebugUI();
+	}
+
+	
 }
 
 GameObject* GameWorld::CreatGameObject(const std::filesystem::path& templateFile)

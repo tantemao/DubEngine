@@ -1,14 +1,14 @@
 {
-  "Components": {
-    "TransformComponent": {
-    },
-    "CameraComponent": {
-      "Position": [ 0.0, 1.5, -4.0 ],
-      "LookAt": [ 0.0, 0.0, 0.0 ]
-    },
-    "FPSCameraComponent": {
-      "MoveSpeed": 2.0,
-      "TurnSpeed": 0.13
+    "Components": {
+        "TransformComponent": {
+        },
+        "CameraComponent": {
+            "Position": [ 0.0, 1.5, -4.0 ],
+            "LookAt": [ 0.0, 0.0, 0.0 ]
+        },
+        "FPSCameraComponent": {
+            "MoveSpeed": 2.0,
+            "TurnSpeed": 0.13
+        }
     }
-  }
 }
