@@ -8,7 +8,7 @@ void GameState::Initialize()
 	mGameWorld.AddService<CameraService>();
 	mGameWorld.AddService<UpdateService>();
 	mGameWorld.Initialize(1000);
-	mGameWorld.CreatGameObject("../../Assets/Templates/test_object.json");
+	//mGameWorld.CreatGameObject("../../Assets/Templates/test_object.json");
 	mGameWorld.CreatGameObject("../../Assets/Templates/test_camera.json");
 	mGameWorld.CreatGameObject("../../Assets/Templates/test_fps_canmera.json");
 
@@ -44,6 +44,5 @@ void GameState::Update(float deltaTime)
 void GameState::DebugUI()
 {
 	mGameWorld.DebugUI();
-	/*CameraService* cameraService = mGameWorld.GetService<CameraService>();
-	SimpleDraw::Render(cameraService->GetMain());*/
+
 }
