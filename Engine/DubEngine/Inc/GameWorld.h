@@ -18,6 +18,7 @@ namespace DubEngine
 		GameObject* CreatGameObject(const std::filesystem::path& templateFile);
 		GameObject* GetGameObject(const GameObjectHandle& handle);
 		void DestoryGameObject(const GameObjectHandle& handle);
+		void LoadLevel(const std::filesystem::path& levelFile);
 
 		template<class ServiceType>
 		ServiceType* AddService()

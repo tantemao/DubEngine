@@ -4,6 +4,7 @@
 #include"UpdateService.h"
 #include"GameWorld.h"
 #include"CameraComponent.h"
+#include"TransformComponent.h"
 
 using namespace DubEngine;
 using namespace DubEngine::Input;
@@ -11,6 +12,7 @@ using namespace DubEngine::Graphics;
 
 void FPSCameraComponent::Initialize()
 {
+	mTransformComponent = GetOwner().GetComponent<TransformComponent>();
 	mCameraComponent = GetOwner().GetComponent<CameraComponent>();
 	UpdateService* updateService = GetOwner().GetWorld().GetService<UpdateService>();
 	ASSERT(updateService != nullptr, "FPSCameraComponent: updateservice is unavailable");
@@ -33,35 +35,39 @@ void FPSCameraComponent::Update(float deltaTime)
 	const float turnSpeed = mTurnSpeed;
 	if (input->IsKeyDown(KeyCode::W))
 	{
-		camera.Walk(moveSpeed * deltaTime);
+		camera.Walk(moveSpeed);
 	}
 	else if (input->IsKeyDown(KeyCode::S))
 	{
-		camera.Walk(-moveSpeed * deltaTime);
+		camera.Walk(-moveSpeed );
 	}
 
 	if (input->IsKeyDown(KeyCode::D))
 	{
-		camera.Strafe(moveSpeed * deltaTime);
+		camera.Strafe(moveSpeed );
 	}
 	else if (input->IsKeyDown(KeyCode::A))
 	{
-		camera.Strafe(-moveSpeed * deltaTime);
+		camera.Strafe(-moveSpeed );
 	}
 
 	if (input->IsKeyDown(KeyCode::E))
 	{
-		camera.Rise(moveSpeed * deltaTime);
+		camera.Rise(moveSpeed );
 	}
 	else if (input->IsKeyDown(KeyCode::Q))
 	{
-		camera.Rise(-moveSpeed * deltaTime);
+		camera.Rise(-moveSpeed );
 	}
 
 	if (input->IsMouseDown(MouseButton::RBUTTON))
 	{
-		camera.Yaw(input->GetMouseMoveX() * turnSpeed * deltaTime);
-		camera.Pitch(input->GetMouseMoveY() * turnSpeed * deltaTime);
+		camera.Yaw(input->GetMouseMoveX() * turnSpeed );
+		camera.Pitch(input->GetMouseMoveY() * turnSpeed );
+	}
+	if (mTransformComponent != nullptr)
+	{
+		mTransformComponent->position = camera.GetPosition();
 	}
 }
 

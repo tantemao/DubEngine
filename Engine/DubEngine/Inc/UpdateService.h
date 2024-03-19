@@ -12,6 +12,7 @@ namespace DubEngine
 
 		void Update(float deltaTime) override;
 
+
 		void Register(Component* component);
 		void UnRegister(Component* component);
 	private:

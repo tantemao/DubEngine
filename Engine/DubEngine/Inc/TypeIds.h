@@ -18,6 +18,7 @@ namespace DubEngine
 		Invalid,
 		Camera,
 		Update,
+		Render,
 
 		Count
 	};

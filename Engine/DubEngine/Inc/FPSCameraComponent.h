@@ -6,6 +6,7 @@
 namespace DubEngine
 {
 	class CameraComponent;
+	class TransformComponent;
 	class FPSCameraComponent final :public Component
 	{
 	public:
@@ -17,6 +18,7 @@ namespace DubEngine
 		void Deserialize(rapidjson::Value& value) override;
 
 	private:
+		TransformComponent* mTransformComponent = nullptr;
 		CameraComponent* mCameraComponent = nullptr;
 		float mMoveSpeed = 1.0f;
 		float mTurnSpeed = 0.1f;
