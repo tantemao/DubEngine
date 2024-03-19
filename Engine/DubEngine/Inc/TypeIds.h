@@ -10,6 +10,8 @@ namespace DubEngine
 		Transform,
 		Camera,
 		FPSCamera,
+		Model,
+
 		Count
 	};
 

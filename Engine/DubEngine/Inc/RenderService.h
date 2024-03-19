@@ -6,6 +6,8 @@
 namespace DubEngine
 {
 	class CameraService;
+	class ModelComponent;
+	class TransformComponent;
 	class RenderService final :public Service
 	{
 	public:
@@ -18,6 +20,8 @@ namespace DubEngine
 		void DebugUI() override;
 
 		void Deserialize(rapidjson::Value& value) override;
+		void Register(const ModelComponent* modelComponent);
+		void Unregister(const ModelComponent* modelComponent);
 
 	private:
 		const CameraService* mCameraService = nullptr;
@@ -27,5 +31,15 @@ namespace DubEngine
 		Graphics::ShadowEffect mShadowEffect;
 
 		float mFPS = 0.0f;
+
+		struct Entry
+		{
+			const ModelComponent* modelComponent = nullptr;
+			const TransformComponent* transformComponent = nullptr;
+			Graphics::RenderGroup renderGroup;
+		};
+
+		using RenderEntries = std::vector<Entry>;
+		RenderEntries mRenderEntries;
 	};
 }

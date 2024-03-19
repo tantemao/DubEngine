@@ -4,6 +4,7 @@
 #include"CameraComponent.h"
 #include"TransformComponent.h"
 #include"FPSCameraComponent.h"
+#include"ModelComponent.h"
 
 using namespace DubEngine;
 namespace rj = rapidjson;
@@ -37,6 +38,11 @@ void GameObjectFactory::Make(const std::filesystem::path& templatePath, GameObje
 		{
 			FPSCameraComponent* fpscameraComponent = gameObject.AddComponent<FPSCameraComponent>();
 			fpscameraComponent->Deserialize(component.value);
+		}
+		else if (strcmp(componentName, "ModelComponent") == 0)
+		{
+			ModelComponent* modelComponent = gameObject.AddComponent<ModelComponent>();
+			modelComponent->Deserialize(component.value);
 		}
 		else
 		{
