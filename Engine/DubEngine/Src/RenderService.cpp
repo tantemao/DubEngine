@@ -47,14 +47,14 @@ void RenderService::Render()
 	}
 
 	mShadowEffect.Begin();
-	for (Entry& entry : mRenderEntries)
+	for (const Entry& entry : mRenderEntries)
 	{
 		DrawRenderGroup(mShadowEffect, entry.renderGroup);
 	}
 	mShadowEffect.End();
 
 	mStandardEffect.Begin();
-	for (Entry& entry : mRenderEntries)
+	for (const Entry& entry : mRenderEntries)
 	{
 		DrawRenderGroup(mStandardEffect, entry.renderGroup);
 	}
