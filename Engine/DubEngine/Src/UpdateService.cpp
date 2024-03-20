@@ -26,7 +26,7 @@ void UpdateService::Register(Component* component)
 	mUpdateComponents.push_back(component);
 }
 
-void UpdateService::UnRegister(Component* component)
+void UpdateService::Unregister(Component* component)
 {
 	auto iter = std::find(mUpdateComponents.begin(), mUpdateComponents.end(), component);
 	if (iter != mUpdateComponents.end())

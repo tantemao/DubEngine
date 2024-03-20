@@ -3,6 +3,7 @@
 
 #include"GameWorld.h"
 #include"CameraService.h"
+#include"MeshComponent.h"
 #include"ModelComponent.h"
 #include"TransformComponent.h"
 using namespace DubEngine;
@@ -117,6 +118,34 @@ void RenderService::Deserialize(rapidjson::Value& value)
 		const float b = color[2].GetFloat();
 		const float a = color[3].GetFloat();
 		mDirectionalLight.specular = { r,g,b,a };
+	}
+}
+
+void RenderService::Register(const MeshComponent* meshComponent)
+{
+	Entry& entry = mRenderEntries.emplace_back();
+
+	const GameObject& gameObject = meshComponent->GetOwner();
+	entry.meshComponent = meshComponent;
+	entry.transformComponent = gameObject.GetComponent<TransformComponent>();
+	entry.renderGroup = CreateRenderGroup(meshComponent->GetModel());
+}
+
+void RenderService::Unregister(const MeshComponent* meshComponent)
+{
+
+	auto iter = std::find_if(
+		mRenderEntries.begin(),
+		mRenderEntries.end(),
+		[&](const Entry& entry)
+		{
+			return entry.meshComponent == meshComponent;
+		}
+	);
+	if (iter != mRenderEntries.end())
+	{
+		CleanupRenderGroup(iter->renderGroup);
+		mRenderEntries.erase(iter);
 	}
 }
 

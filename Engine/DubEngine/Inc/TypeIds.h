@@ -11,6 +11,7 @@ namespace DubEngine
 		Camera,
 		FPSCamera,
 		Model,
+		Mesh,
 
 		Count
 	};

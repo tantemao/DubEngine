@@ -6,6 +6,7 @@
 namespace DubEngine
 {
 	class CameraService;
+	class MeshComponent;
 	class ModelComponent;
 	class TransformComponent;
 	class RenderService final :public Service
@@ -20,6 +21,10 @@ namespace DubEngine
 		void DebugUI() override;
 
 		void Deserialize(rapidjson::Value& value) override;
+
+		void Register(const MeshComponent* meshComponent);
+		void Unregister(const MeshComponent* meshComponent);
+
 		void Register(const ModelComponent* modelComponent);
 		void Unregister(const ModelComponent* modelComponent);
 
@@ -34,6 +39,7 @@ namespace DubEngine
 
 		struct Entry
 		{
+			const MeshComponent* meshComponent = nullptr;
 			const ModelComponent* modelComponent = nullptr;
 			const TransformComponent* transformComponent = nullptr;
 			Graphics::RenderGroup renderGroup;

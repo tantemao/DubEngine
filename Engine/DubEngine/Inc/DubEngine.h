@@ -14,6 +14,7 @@
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
 #include "ModelComponent.h"
+#include "MeshComponent.h"
 //services
 #include "Service.h"
 #include "CameraService.h"

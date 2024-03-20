@@ -31,6 +31,7 @@
     <ClInclude Include="Inc\GameObjectFactory.h" />
     <ClInclude Include="Inc\GameObjectHandle.h" />
     <ClInclude Include="Inc\GameWorld.h" />
+    <ClInclude Include="Inc\MeshComponent.h" />
     <ClInclude Include="Inc\ModelComponent.h" />
     <ClInclude Include="Inc\RenderService.h" />
     <ClInclude Include="Inc\Service.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="Src\GameObject.cpp" />
     <ClCompile Include="Src\GameObjectFactory.cpp" />
     <ClCompile Include="Src\GameWorld.cpp" />
+    <ClCompile Include="Src\MeshComponent.cpp" />
     <ClCompile Include="Src\ModelComponent.cpp" />
     <ClCompile Include="Src\Precompiled.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -14,7 +14,7 @@ namespace DubEngine
 
 
 		void Register(Component* component);
-		void UnRegister(Component* component);
+		void Unregister(Component* component);
 	private:
 		void RegisterPendingUpdates();
 		using UpdateComponents = std::vector<Component*>;

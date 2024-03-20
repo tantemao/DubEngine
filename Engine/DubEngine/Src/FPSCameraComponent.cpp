@@ -23,7 +23,7 @@ void FPSCameraComponent::Terminate()
 {
 	UpdateService* updateService = GetOwner().GetWorld().GetService<UpdateService>();
 	ASSERT(updateService != nullptr, "FPSCameraComponent: updateservice is unavailable");
-	updateService->UnRegister(this);
+	updateService->Unregister(this);
 	mCameraComponent = nullptr;
 }
 
