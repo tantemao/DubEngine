@@ -10,11 +10,13 @@
 #include "GameObjectFactory.h"
 //component
 #include "Component.h"
+#include "ColliderComponent.h"
 #include "TransformComponent.h"
 #include "CameraComponent.h"
 #include "FPSCameraComponent.h"
 #include "ModelComponent.h"
 #include "MeshComponent.h"
+#include "RigidBodyComponent.h"
 //services
 #include "Service.h"
 #include "CameraService.h"

@@ -38,6 +38,12 @@ void RigidBody::Terminate()
 	SafeDelete(mRigidBody);
 }
 
+void RigidBody::SetPosition(const DubEngine::DEMath::Vector3& position)
+{
+	mGraphicsTransform->position = position;
+	mRigidBody->setWorldTransform(ConvertTobtTransform(*mGraphicsTransform));
+}
+
 bool RigidBody::IsDynamic() const
 {
 	return mMass > 0.0f;

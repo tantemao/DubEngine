@@ -16,7 +16,7 @@ namespace DubEngine::Physics
 		~RigidBody();
 		void Initialize( Graphics::Transform& graphicsTransform ,const CollisionShape& shape,float mass = 0.0f);
 		void Terminate();
-		//void SetPosition(const DubEngine::DEMath::Vector3)
+		void SetPosition(const DubEngine::DEMath::Vector3& position);
 		bool IsDynamic() const;
 		void UpdateTransform();
 		btRigidBody* GetRigidBody() const;

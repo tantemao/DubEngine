@@ -12,6 +12,8 @@ namespace DubEngine
 		FPSCamera,
 		Model,
 		Mesh,
+		RigidBody,
+		Collider,
 
 		Count
 	};

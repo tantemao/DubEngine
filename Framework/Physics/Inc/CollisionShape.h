@@ -29,4 +29,11 @@ namespace DubEngine::Physics
 		CollisionShapeBox() = default;
 		void Initialize(const DubEngine::DEMath::Vector3& halfExtents);
 	};
+
+	class CollisionShapeEmpty :public CollisionShape
+	{
+	public:
+		CollisionShapeEmpty() = default;
+		void Initialize();
+	};
 }

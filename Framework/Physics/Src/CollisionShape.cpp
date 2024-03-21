@@ -24,3 +24,8 @@ void CollisionShapeBox::Initialize(const DubEngine::DEMath::Vector3& halfExtents
 	ASSERT(mCollisionShape == nullptr, "CollisionShapebOX:collision shape has already been created");
 	mCollisionShape = new btBoxShape(ConvertTobtVector3(halfExtents));
 }
+void CollisionShapeEmpty::Initialize()
+{
+	ASSERT(mCollisionShape == nullptr, "CollisionShapebOX:collision shape has already been created");
+	mCollisionShape = new btEmptyShape();
+}
