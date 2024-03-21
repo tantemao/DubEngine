@@ -9,13 +9,14 @@ using namespace DubEngine::Graphics;
 void ModelComponent::Initialize()
 {
 	ModelManager* mm = ModelManager::Get();
+	mModelId = mm->LoadModel(mFileName);
 	/*mModelId = mm->GetModelId(mFileName);
 	if (mm->GetModel(mModelId) == nullptr)
 	{
 		mm->LoadModel(mFileName);
 	}*/
 
-	mModelId = mm->LoadModel(mFileName);
+
 	RenderService* rs = GetOwner().GetWorld().GetService<RenderService>();
 	rs->Register(this);
 	

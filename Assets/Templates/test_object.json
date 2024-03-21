@@ -6,7 +6,7 @@
       "Scale": [ 1.0, 1.0, 1.0 ]
     },
     "ModelComponent": {
-      "FileName": "../../Assets/Models/character.model"
+      "FileName": "../../Assets/Models/Jones/character.model"
     }
   }
 }

@@ -369,6 +369,91 @@ Mesh MeshBuilder::CreatePlane(int numRows, int numColumns, float spacing)
     return mesh;
 }
 
+Mesh MeshBuilder::CreateCube(float size)
+{
+    Mesh mesh;
+
+
+    float hs = size * 0.5f;
+
+
+    // FRONT
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs, -hs }, DEMath::Vector3::ZAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.5f, 0.33f) }); // Top Right Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs, -hs }, DEMath::Vector3::ZAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.25f, 0.66f) }); // Bottom Left Close
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs, -hs }, DEMath::Vector3::ZAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.5f, 0.66f) }); // Bottom Right Close
+
+
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs, -hs }, DEMath::Vector3::ZAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.5f, 0.33f) }); // Top Right Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs, -hs }, DEMath::Vector3::ZAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.25f, 0.33f) }); // Top Left Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs, -hs }, DEMath::Vector3::ZAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.25f, 0.66f) }); // Bottom Left Close
+
+
+    // BACK
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs,  hs }, -DEMath::Vector3::ZAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(1.0f, 0.33f) }); // Top Left Far
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs,  hs }, -DEMath::Vector3::ZAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.75f, 0.66f) }); // Bottom Right Far
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs,  hs }, -DEMath::Vector3::ZAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(1.0f, 0.66f) }); // Bottom Left Far
+
+
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs,  hs }, -DEMath::Vector3::ZAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(1.0f, 0.33f) }); // Top Left Far
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs,  hs }, -DEMath::Vector3::ZAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.75f, 0.33f) }); // Top Right Far
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs,  hs }, -DEMath::Vector3::ZAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.75f, 0.66f) }); // Bottom Right Far
+
+
+    // RIGHT
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs,  hs }, DEMath::Vector3::XAxis, DEMath::Vector3::ZAxis, DEMath::Vector2(0.75f, 0.33f) }); // Top Right Far
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs, -hs }, DEMath::Vector3::XAxis, DEMath::Vector3::ZAxis, DEMath::Vector2(0.5f, 0.66f) }); // Bottom Right Close
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs,  hs }, DEMath::Vector3::XAxis, DEMath::Vector3::ZAxis, DEMath::Vector2(0.75f, 0.66f) }); // Bottom Right Far
+
+
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs,  hs }, DEMath::Vector3::XAxis, DEMath::Vector3::ZAxis, DEMath::Vector2(0.75f, 0.33f) }); // Top Right Far
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs, -hs }, DEMath::Vector3::XAxis, DEMath::Vector3::ZAxis, DEMath::Vector2(0.5f, 0.33f) }); // Top Right Close
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs, -hs }, DEMath::Vector3::XAxis, DEMath::Vector3::ZAxis, DEMath::Vector2(0.5f, 0.66f) }); // Bottom Right Close
+
+
+    // Left
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs, -hs }, -DEMath::Vector3::XAxis, -DEMath::Vector3::ZAxis, DEMath::Vector2(0.25f, 0.33f) }); // Top Left Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs,  hs }, -DEMath::Vector3::XAxis, -DEMath::Vector3::ZAxis, DEMath::Vector2(0.0f, 0.66f) }); // Bottom Left Far
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs, -hs }, -DEMath::Vector3::XAxis, -DEMath::Vector3::ZAxis, DEMath::Vector2(0.25f, 0.66f) }); // Bottom Left Close
+
+
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs, -hs }, -DEMath::Vector3::XAxis, -DEMath::Vector3::ZAxis, DEMath::Vector2(0.25f, 0.33f) }); // Top Left Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs,  hs }, -DEMath::Vector3::XAxis, -DEMath::Vector3::ZAxis, DEMath::Vector2(0.0f, 0.33f) }); // Top Left Far
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs,  hs }, -DEMath::Vector3::XAxis, -DEMath::Vector3::ZAxis, DEMath::Vector2(0.0f, 0.66f) }); // Bottom Left Far
+
+
+    // Top
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs,  hs }, DEMath::Vector3::YAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.5f,  0.0f) }); // Top Right Far
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs, -hs }, DEMath::Vector3::YAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.25f, 0.33f) }); // Top Left Close
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs, -hs }, DEMath::Vector3::YAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.5f, 0.33f) }); // Top Right Close
+
+
+    mesh.vertices.push_back({ DEMath::Vector3{  hs,  hs,  hs }, DEMath::Vector3::YAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.5f,  0.0f) }); // Top Right Far
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs,  hs }, DEMath::Vector3::YAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.25f,  0.0f) }); // Top Left Far
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs,  hs, -hs }, DEMath::Vector3::YAxis, DEMath::Vector3::XAxis, DEMath::Vector2(0.25f, 0.33f) }); // Top Left Close
+
+
+    // Bottom
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs, -hs }, -DEMath::Vector3::YAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.5f, 0.66f) }); // Bottom Right Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs,  hs }, -DEMath::Vector3::YAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.25f,  1.0f) }); // Bottom Left Far
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs,  hs }, -DEMath::Vector3::YAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.5f,  1.0f) }); // Bottom Right Far
+
+
+    mesh.vertices.push_back({ DEMath::Vector3{  hs, -hs, -hs }, -DEMath::Vector3::YAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.5f, 0.66f) }); // Bottom Right Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs, -hs }, -DEMath::Vector3::YAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.25f, 0.66f) }); // Bottom Left Close
+    mesh.vertices.push_back({ DEMath::Vector3{ -hs, -hs,  hs }, -DEMath::Vector3::YAxis, -DEMath::Vector3::XAxis, DEMath::Vector2(0.25f,  1.0f) }); // Bottom Left Far
+
+
+    int i = 0;
+    for (const auto& vertex : mesh.vertices)
+    {
+        mesh.indices.push_back(i);
+        ++i;
+    }
+
+
+    return mesh;
+}
+
 MeshPX MeshBuilder::CreateScreenQuad()
 {
     MeshPX mesh;

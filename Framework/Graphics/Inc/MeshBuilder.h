@@ -18,6 +18,7 @@ namespace DubEngine::Graphics
         static MeshPX CreateSpherePX(int slices, int rings, float radius);
         static Mesh CreateSphere(int slices, int rings, float radius);
         static Mesh CreatePlane(int numRows, int numColumns, float spacing);
+        static Mesh CreateCube(float size);
 
         static MeshPX CreateScreenQuad();
     };

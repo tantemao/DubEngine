@@ -45,12 +45,15 @@ RenderGroup Graphics::CreateRenderGroup(const Model& model, const Animator* anim
     for (auto& meshData : model.meshData)
     {
         auto& renderObject = renderGroup.emplace_back();
-        auto& materialData = model.materialData[meshData.materialIndex];
-        renderObject.material = materialData.material;
-        renderObject.diffuseMapId = TryLoadTexture(materialData.diffuseMapName);
-        renderObject.specularMapId = TryLoadTexture(materialData.specularMapName);
-        renderObject.displacementMapId = TryLoadTexture(materialData.displacementMapName);
-        renderObject.normalMapId = TryLoadTexture(materialData.normalMapName);
+        if (meshData.materialIndex < model.materialData.size())
+        {
+            auto& materialData = model.materialData[meshData.materialIndex];
+            renderObject.material = materialData.material;
+            renderObject.diffuseMapId = TryLoadTexture(materialData.diffuseMapName);
+            renderObject.specularMapId = TryLoadTexture(materialData.specularMapName);
+            renderObject.displacementMapId = TryLoadTexture(materialData.displacementMapName);
+            renderObject.normalMapId = TryLoadTexture(materialData.normalMapName);
+        }
 
         renderObject.skeleton = model.skeleton.get();
         renderObject.animator = animator;
